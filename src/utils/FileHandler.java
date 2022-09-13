@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FileHandler {
     private static List<User> users = new ArrayList<>();
-    private final static String fileName = "users.txt";
+    private final static String fileName = "assets/users.txt";
 
     public void writeToFile(List<User> user) {
         try {
