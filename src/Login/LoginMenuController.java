@@ -6,6 +6,7 @@ import utils.Encrypt;
 import utils.FileHandler;
 import utils.User;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,6 +34,10 @@ public class LoginMenuController {
         view.printPasswordPrompt();
         String password = scanner.nextLine();
         String encryptedPassword = Encrypt.encryptPassword(password);
+       /* password masking
+        Console console = System.console();
+        char[] input2 = console.readPassword();
+        String encryptedPassword = Encrypt.encryptPassword(String.valueOf(input2));*/
         isUserValid = validateLoginDetails(userName, encryptedPassword);
         if (isUserValid) {
             validateRole();
