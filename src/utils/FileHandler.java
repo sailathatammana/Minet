@@ -6,17 +6,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileHandler {
-    private static List<User> users = new ArrayList<>();
-    private final static String fileName = "assets/users.txt";
+public class FileHandler<T> {
+    //private  List<T> users = new ArrayList<>();
+    //private String fileName;
 
-    public void writeToFile(List<User> user) {
+    public void writeToFile(List<T> itemList, String fileName) {
         try {
             String lineSeparator = System.getProperty("line.separator");
             FileOutputStream file = new FileOutputStream(fileName);
 
-            for (User user1 : user) {
-                String tempUser = user1.toString();
+            for (T item : itemList) {
+                String tempUser = item.toString();
                 byte[] mybytes = tempUser.getBytes();
                 file.write(mybytes);
                 file.write(lineSeparator.getBytes());
@@ -27,20 +27,19 @@ public class FileHandler {
         }
     }
 
-    public static List<User> readFromFile() {
+    public List<List<String>> readFromFile(String fileName) {
         String line;
-
+        List<List<String>> itemList = new ArrayList<>();
         try {
-            Files.isReadable(Paths.get("data.txt"));
+            Files.isReadable(Paths.get(fileName));
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     new FileInputStream(fileName)));
             while ((line = br.readLine()) != null) {
-                List<String> result = List.of(line.split(","));
-                users.add(new User(result.get(0), result.get(1), result.get(2), result.get(3)));
+                itemList.add(List.of(line.split(",")));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        return users;
+        return itemList;
     }
 }

@@ -6,7 +6,7 @@ import utils.Encrypt;
 import utils.FileHandler;
 import utils.User;
 
-import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,9 +14,10 @@ public class LoginMenuController {
     private final LoginMenuModel model;
     private final LoginMenuView view;
     private final Scanner scanner;
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
     private int userIndex;
     private final String role;
+    FileHandler<User> fileHandler = new FileHandler<>();
 
     public LoginMenuController(LoginMenuModel model, LoginMenuView view, String role) {
         this.model = model;
@@ -27,7 +28,10 @@ public class LoginMenuController {
 
     public void requestUserInput() {
         boolean isUserValid;
-        users = FileHandler.readFromFile();
+        List<List<String>> result = fileHandler.readFromFile("assets/users.txt");
+        for (int i = 0; i < result.size(); i++) {
+            users.add(new User(result.get(i).get(0), result.get(i).get(1), result.get(i).get(2), result.get(i).get(3)));
+        }
         if (listHasUsers()) return;
         view.printUserNamePrompt();
         String userName = scanner.nextLine();
