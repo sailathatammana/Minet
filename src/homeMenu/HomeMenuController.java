@@ -1,28 +1,28 @@
 package homeMenu;
 
+import mvc.BaseController;
 import utils.Display;
 
 import java.util.Scanner;
 
-public class HomeMenuController {
-    private final HomeMenuModel model;
+public class HomeMenuController extends BaseController {
+
     private final Scanner scanner;
 
-    public HomeMenuController(HomeMenuModel model) {
-        this.model = model;
+    public HomeMenuController(HomeMenuModel model,HomeMenuView view) {
+       super(model,view);
         this.scanner = new Scanner(System.in);
     }
 
     public void requestUserInput() {
-        String input = scanner.nextLine();
+        String input = view.chooseOption();;
 
         try {
             int selectedOption = Integer.parseInt(input);
 
             model.handleOption(selectedOption);
         } catch (NumberFormatException | IndexOutOfBoundsException exception) {
-            Display.printInvalidOption();
-            Display.chooseOption();
+            view.printNumberInvalidOption();
             requestUserInput();
         }
     }

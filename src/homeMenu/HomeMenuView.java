@@ -1,14 +1,13 @@
 package homeMenu;
 
-import utils.Display;
+import mvc.BaseView;
 
 import java.util.List;
 
-public class HomeMenuView {
+public class HomeMenuView extends BaseView {
     public HomeMenuView(List<String> menuOptions) {
-        Display.clearScreen();
+        clearScreen();
         System.out.println("Login menu options:");
-        Display.displayList(menuOptions);
-        Display.chooseOption();
+        displayList(menuOptions);
     }
 }
