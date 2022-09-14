@@ -1,18 +1,20 @@
 package Login;
 
-import utils.Display;
+import mvc.BaseView;
 
-public class LoginMenuView {
+public class LoginMenuView extends BaseView {
     public LoginMenuView() {
-        Display.clearScreen();
+        clearScreen();
     }
 
-    public void printUserNamePrompt() {
+    public String printUserNamePrompt() {
         System.out.print("Please Enter username: ");
+        return scanner.nextLine();
     }
 
-    public void printPasswordPrompt() {
+    public String printPasswordPrompt() {
         System.out.print("Please Enter password: ");
+        return scanner.nextLine();
     }
 
     public void printInvalidCred() {

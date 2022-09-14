@@ -8,6 +8,4 @@ public abstract class BaseModel {
         return null;
     }
 
-    public void handleOption(int selectedOption) throws IndexOutOfBoundsException {
-    }
 }

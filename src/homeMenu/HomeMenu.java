@@ -1,10 +1,18 @@
 package homeMenu;
 
+import Login.LoginMenu;
+
 public class HomeMenu {
-    public HomeMenu() {
-        HomeMenuModel model = new HomeMenuModel();
-       HomeMenuView view = new HomeMenuView(model.getMenuOptions());
-        HomeMenuController controller = new HomeMenuController(model,view);
-        controller.requestUserInput();
+    HomeMenuController controller = new HomeMenuController();
+
+    public void start() {
+        while (true) {
+            String role = controller.run();
+            if (controller.model.menuOptions.contains(role)) {
+                LoginMenu loginMenu = new LoginMenu(role);
+                loginMenu.start();
+                break;
+            }
+        }
     }
 }

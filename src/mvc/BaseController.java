@@ -1,15 +1,16 @@
 package mvc;
 
-public abstract class BaseController {
-    protected final BaseModel model;
-    protected final BaseView view;
+public abstract class BaseController<T> {
 
-    public BaseController(BaseModel model, BaseView view) {
-        this.model = model;
-        this.view = view;
+    public BaseController() {
     }
 
-    public void requestUserInput() {
+    public T run() {
+        return null;
+    }
+
+    public boolean handleOption(int selectedOption) {
+        return false;
     }
 
 }

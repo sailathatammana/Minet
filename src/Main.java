@@ -1,11 +1,9 @@
 import homeMenu.HomeMenu;
-import utils.FileHandler;
-
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        new HomeMenu();
+        HomeMenu homeMenu = new HomeMenu();
+        homeMenu.start();
        /*FileHandler<String> fileHandler = new FileHandler<>();
         fileHandler.writeToFile(List.of("Hi","Hello"),"assets/temp.txt");
 
