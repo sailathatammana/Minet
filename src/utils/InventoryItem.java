@@ -8,6 +8,8 @@ public class InventoryItem implements Serializable {
     private String description;
     private float price;
     private int quantity;
+    private String stockStatus;
+    private float cost;
 
     public InventoryItem(int id, String title, String description, float price, int quantity) {
         this.id = id;
@@ -15,6 +17,7 @@ public class InventoryItem implements Serializable {
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.setStockStatus();
     }
 
     public int getId() {
@@ -51,6 +54,26 @@ public class InventoryItem implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getStockStatus() {
+        return stockStatus;
+    }
+
+    public void setStockStatus() {
+        if (this.getQuantity() <= 1) {
+            this.stockStatus = "Out of stock";
+        } else {
+            this.stockStatus = "In stock";
+        }
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost() {
+        this.cost = this.getQuantity()*this.getPrice();
     }
 
     @Override

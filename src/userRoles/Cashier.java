@@ -52,9 +52,9 @@ public class Cashier implements iCashier {
     }
 
     public void displayInventory() {
-        String tableHeader = "| Id    | Product         | Price   | Qty  |%n";
-        String tableBorder = "+-------+-----------------+---------+------+%n";
-        String tableFormat = "| %-5d | %-15s | %-7.2f | %-4d |%n";
+        String tableHeader = "| Id    | Product         | Price   | Qty  | Status        |%n";
+        String tableBorder = "+-------+-----------------+---------+------+---------------+%n";
+        String tableFormat = "| %-5d | %-15s | %-7.2f | %-4d | %-13s |%n";
         System.out.format(tableBorder);
         System.out.format(tableHeader);
         System.out.format(tableBorder);
@@ -63,7 +63,8 @@ public class Cashier implements iCashier {
             String title = inventoryItem.getTitle();
             float price = inventoryItem.getPrice();
             int quantity = inventoryItem.getQuantity();
-            System.out.format(tableFormat, id, title, price, quantity);
+            String stockStatus = inventoryItem.getStockStatus();
+            System.out.format(tableFormat, id, title, price, quantity,stockStatus);
         }
         System.out.format(tableBorder);
     }
