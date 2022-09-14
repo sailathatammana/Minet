@@ -2,6 +2,8 @@ package login;
 
 import mvc.BaseView;
 
+import java.io.Console;
+
 public class LoginMenuView extends BaseView {
     public LoginMenuView() {
         clearScreen();
@@ -15,6 +17,9 @@ public class LoginMenuView extends BaseView {
     public String printPasswordPrompt() {
         System.out.print("Please Enter password: ");
         return scanner.nextLine();
+        /*Console console = System.console();
+        char[] password = console.readPassword();
+        return String.valueOf(password);*/
     }
 
     public void printInvalidCred() {

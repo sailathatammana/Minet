@@ -23,10 +23,6 @@ public class LoginMenuController extends BaseController<User> {
         String password = view.printPasswordPrompt();
         String encryptedPassword = Encrypt.encryptPassword(password);
         return (new User("", userName, encryptedPassword, this.role));
-       /* password masking
-        Console console = System.console();
-        char[] input2 = console.readPassword();
-        String encryptedPassword = Encrypt.encryptPassword(String.valueOf(input2));*/
     }
 
     private boolean listHasUsers() {
