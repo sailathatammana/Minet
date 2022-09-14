@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandler<T> {
-    //private  List<T> users = new ArrayList<>();
-    //private String fileName;
 
     public void writeToFile(List<T> itemList, String fileName) {
         try {

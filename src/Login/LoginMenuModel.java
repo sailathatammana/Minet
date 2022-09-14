@@ -13,8 +13,8 @@ public class LoginMenuModel {
 
     public List<User> getAllUsers() {
         List<List<String>> result = fileHandler.readFromFile("assets/users.txt");
-        for (int i = 0; i < result.size(); i++) {
-            users.add(new User(result.get(i).get(0), result.get(i).get(1), result.get(i).get(2), result.get(i).get(3)));
+        for (List<String> strings : result) {
+            users.add(new User(strings.get(0), strings.get(1), strings.get(2), strings.get(3)));
         }
         return users;
     }

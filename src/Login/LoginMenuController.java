@@ -6,18 +6,14 @@ import utils.Display;
 import utils.Encrypt;
 import utils.User;
 
-import java.util.Scanner;
-
 public class LoginMenuController extends BaseController<User> {
     LoginMenuModel model = new LoginMenuModel();
     LoginMenuView view = new LoginMenuView();
-    private final Scanner scanner;
 
     private final String role;
 
     public LoginMenuController(String role) {
         this.role = role;
-        this.scanner = new Scanner(System.in);
     }
 
     public User run() {
