@@ -1,6 +1,6 @@
 package homeMenu;
 
-import Login.LoginMenu;
+import login.LoginMenu;
 
 public class HomeMenu {
     HomeMenuController controller = new HomeMenuController();

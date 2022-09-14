@@ -1,4 +1,4 @@
-package Login;
+package login;
 
 import utils.FileHandler;
 import utils.User;

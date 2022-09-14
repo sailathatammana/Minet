@@ -1,27 +1,25 @@
-package Login;
+package login;
 
 
+import cashier.CashierMenu;
 import homeMenu.HomeMenu;
 import utils.Display;
 import utils.User;
-
-import java.util.List;
 
 public class LoginMenu {
     LoginMenuController controller;
     private int userIndex;
     private final String role;
-    protected List<User> users;
+    User user;
 
     public LoginMenu(String role) {
         this.role = role;
         controller = new LoginMenuController(role);
-        users = controller.model.getAllUsers();
     }
 
     public void start() {
         while (true) {
-            User user = controller.run();
+            user = controller.run();
             boolean isUserValid = validateLoginDetails(user.getUserName(), user.getPassword());
             if (isUserValid) {
                 validateRole();
@@ -33,9 +31,9 @@ public class LoginMenu {
     }
 
     private boolean validateLoginDetails(String userName, String encryptedPassword) {
-        for (User userData : users) {
+        for (User userData : controller.model.users) {
             if ((userData.getUserName().equals(userName)) && (userData.getPassword().equals(encryptedPassword))) {
-                userIndex = users.indexOf(userData);
+                userIndex = controller.model.users.indexOf(userData);
                 return true;
             }
         }
@@ -43,8 +41,8 @@ public class LoginMenu {
     }
 
     private void validateRole() {
-        if ((users.get(userIndex).getUserRole().equalsIgnoreCase(role))) {
-            this.handleOption(role);
+        if ((controller.model.users.get(userIndex).getUserRole().equalsIgnoreCase(role))) {
+            this.handleOption();
         } else {
             controller.view.printInvalidUser();
             Display.returnMainMenu();
@@ -53,11 +51,16 @@ public class LoginMenu {
         }
     }
 
-    public void handleOption(String role) {
-        switch (role) {
-            case "Cashier" -> System.out.println("Cashier");
-            case "Manager" -> System.out.println("Manager");
-            case "Admin" -> System.out.println("Admin");
+    public void handleOption() {
+        User currentUser = controller.model.users.get(userIndex);
+        String userRole = controller.model.users.get(userIndex).getUserRole();
+        switch (userRole.toLowerCase()) {
+            case "cashier" -> {
+                CashierMenu cashierMenu = new CashierMenu();
+                cashierMenu.start(currentUser);
+            }
+            case "manager" -> System.out.println("Manager");
+            case "admin" -> System.out.println("Admin");
         }
 
     }

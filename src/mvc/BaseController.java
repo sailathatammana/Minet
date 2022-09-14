@@ -9,8 +9,8 @@ public abstract class BaseController<T> {
         return null;
     }
 
-    public boolean handleOption(int selectedOption) {
-        return false;
+    public int handleOption(int selectedOption) {
+        return 0;
     }
 
 }

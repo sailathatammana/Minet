@@ -1,4 +1,4 @@
-package Login;
+package login;
 
 import homeMenu.HomeMenu;
 import mvc.BaseController;
@@ -14,6 +14,7 @@ public class LoginMenuController extends BaseController<User> {
 
     public LoginMenuController(String role) {
         this.role = role;
+        model.getAllUsers();
     }
 
     public User run() {
@@ -29,7 +30,7 @@ public class LoginMenuController extends BaseController<User> {
     }
 
     private boolean listHasUsers() {
-        if (model.getAllUsers().size() == 0) {
+        if (model.users.size() == 0) {
             view.printUsersEmpty();
             Display.returnMainMenu();
             new HomeMenu();
