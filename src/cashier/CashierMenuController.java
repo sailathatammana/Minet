@@ -3,7 +3,7 @@ package cashier;
 import mvc.BaseController;
 import utils.Display;
 
-public class CashierMenuController extends BaseController {
+public class CashierMenuController extends BaseController<String> {
     CashierMenuModel model = new CashierMenuModel();
     CashierMenuView view = new CashierMenuView(model.getMenuOptions());
 
