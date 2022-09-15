@@ -7,7 +7,7 @@ public class Display {
     static Scanner scanner = new Scanner(System.in);
 
     public static void exit() {
-        System.out.println("Thank you for using the ATM Console!");
+        System.out.println("Thank you for shopping!");
         System.exit(1);
     }
 

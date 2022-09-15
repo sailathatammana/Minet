@@ -1,15 +1,19 @@
 package userRoles;
 
-import utils.FileHandler;
-import utils.InventoryItem;
-import utils.User;
+import utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Cashier implements iCashier {
-    List<InventoryItem> inventory = new ArrayList<InventoryItem>();
+    InventoryItem item = null;
+    private List<InventoryItem> inventory = new ArrayList<InventoryItem>();
+    private List<Transaction> transactionList = new ArrayList<Transaction>();
+
     FileHandler<InventoryItem> fileHandler = new FileHandler<>();
+    FileHandler<Transaction> fileHandler1 = new FileHandler<>();
+    Scanner scanner = new Scanner(System.in);
     User user;
 
     public Cashier(User user) {
@@ -19,8 +23,35 @@ public class Cashier implements iCashier {
 
     @Override
     public void sellItem() {
-        System.out.println(user.getFullName());
-        System.out.println("Sell Item");
+        transactionList = getAllTransactions();
+        while (true) {
+            boolean done;
+            try {
+                System.out.print("Enter Item name: ");
+                String itemName = scanner.nextLine();
+                System.out.print("Enter Quantity: ");
+                int quantity = Integer.parseInt(scanner.nextLine());
+                done = getItemByName(itemName);
+                if (done) {
+                    int updatedQuantity = item.getQuantity();
+                    updatedQuantity = updatedQuantity - quantity;
+                    item.setQuantity(updatedQuantity);
+                    String itemTitle = item.getTitle();
+                    String cashierName = user.getFullName();
+                    int receiptNumber = GenerateReceiptNumber.generateReceiptNumber();
+                    float amount = quantity * item.getPrice();
+                    TransactionType type = TransactionType.SELL;
+                    transactionList.add(new Transaction(itemTitle, cashierName, receiptNumber, amount, type));
+                    break;
+                } else {
+                    System.out.println("Item unavailable");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number for quantity ");
+            }
+        }
+        fileHandler1.writeToFile(transactionList, "assets/transactions.txt");
+        fileHandler.writeToFile(inventory, "assets/inventory.txt");
     }
 
     @Override
@@ -51,6 +82,19 @@ public class Cashier implements iCashier {
         return inventory;
     }
 
+    public List<Transaction> getAllTransactions() {
+        List<List<String>> result = fileHandler.readFromFile("assets/transactions.txt");
+        for (List<String> strings : result) {
+            String inventoryItem = strings.get(0);
+            String cashierName = strings.get(1);
+            int receiptNumber = Integer.parseInt(strings.get(2));
+            float amount = Float.parseFloat(strings.get(3));
+            TransactionType type = TransactionType.valueOf(strings.get(4));
+            transactionList.add(new Transaction(inventoryItem, cashierName, receiptNumber, amount, type));
+        }
+        return transactionList;
+    }
+
     public void displayInventory() {
         String tableHeader = "| Id    | Product         | Price   | Qty  | Status        |%n";
         String tableBorder = "+-------+-----------------+---------+------+---------------+%n";
@@ -64,8 +108,21 @@ public class Cashier implements iCashier {
             float price = inventoryItem.getPrice();
             int quantity = inventoryItem.getQuantity();
             String stockStatus = inventoryItem.getStockStatus();
-            System.out.format(tableFormat, id, title, price, quantity,stockStatus);
+            System.out.format(tableFormat, id, title, price, quantity, stockStatus);
         }
         System.out.format(tableBorder);
+    }
+
+    public boolean getItemByName(String itemName) {
+        for (InventoryItem inventoryItem : inventory) {
+            String name = inventoryItem.getTitle();
+            int quantity = inventoryItem.getQuantity();
+
+            if (name.equalsIgnoreCase(itemName) && quantity > 1) {
+                item = inventoryItem;
+                return true;
+            }
+        }
+        return false;
     }
 }

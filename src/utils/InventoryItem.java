@@ -9,7 +9,6 @@ public class InventoryItem implements Serializable {
     private float price;
     private int quantity;
     private String stockStatus;
-    private float cost;
 
     public InventoryItem(int id, String title, String description, float price, int quantity) {
         this.id = id;
@@ -66,14 +65,6 @@ public class InventoryItem implements Serializable {
         } else {
             this.stockStatus = "In stock";
         }
-    }
-
-    public float getCost() {
-        return cost;
-    }
-
-    public void setCost() {
-        this.cost = this.getQuantity()*this.getPrice();
     }
 
     @Override
