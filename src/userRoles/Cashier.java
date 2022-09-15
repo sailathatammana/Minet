@@ -36,12 +36,11 @@ public class Cashier implements iCashier {
                     updatedQuantity = updatedQuantity - quantity;
                     item.setQuantity(updatedQuantity);
                     String itemTitle = item.getTitle();
-                    int itemQuantity = item.getQuantity();
                     String cashierName = user.getFullName();
                     int receiptNumber = GenerateReceiptNumber.generateReceiptNumber();
                     float amount = quantity * item.getPrice();
                     TransactionType type = TransactionType.SELL;
-                    transactionList.add(new Transaction(itemTitle, itemQuantity, cashierName, receiptNumber, amount, type));
+                    transactionList.add(new Transaction(itemTitle, quantity, cashierName, receiptNumber, amount, type));
                     break;
                 }
             } catch (NumberFormatException e) {

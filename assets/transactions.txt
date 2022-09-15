@@ -1,3 +1,1 @@
-Flashlight,Ravi,304,100.0,SELL
-Tin can,Ravi,312,90.0,SELL
-Tin can,Sai,318,45.0,SELL
+Tin can,1,Ravi,316,45.0,SELL
