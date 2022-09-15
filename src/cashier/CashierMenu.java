@@ -17,7 +17,6 @@ public class CashierMenu {
                     case "Create order" -> cashier.createOrder();
                     case "View Inventory" -> cashier.viewInventory();
                 }
-                break;
             }
         }
     }

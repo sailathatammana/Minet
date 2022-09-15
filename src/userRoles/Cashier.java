@@ -7,48 +7,51 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Cashier implements iCashier {
-    InventoryItem item = null;
+    //InventoryItem item = null;
     private List<InventoryItem> inventory = new ArrayList<InventoryItem>();
     private List<Transaction> transactionList = new ArrayList<Transaction>();
     FileHandler<InventoryItem> fileHandler = new FileHandler<>();
-    FileHandler<Transaction> fileHandler1 = new FileHandler<>();
+    FileHandler<Transaction> transactionFileHandler = new FileHandler<>();
     Scanner scanner = new Scanner(System.in);
     User user;
 
     public Cashier(User user) {
         this.user = user;
-        inventory = getInventory();
+        getInventory();
+        getAllTransactions();
     }
 
     @Override
     public void sellItem() {
-        transactionList = getAllTransactions();
         while (true) {
-            boolean done;
+            InventoryItem item;
             try {
-                System.out.print("Enter Item name: ");
+                System.out.print("Enter Item name/Enter `q` to go back to main menu\nInput:");
                 String itemName = scanner.nextLine();
-                System.out.print("Enter Quantity: ");
-                int quantity = Integer.parseInt(scanner.nextLine());
-                done = getItemByName(itemName);
-                if (done && validateQuantity(quantity, item.getQuantity())) {
-                    int updatedQuantity = item.getQuantity();
-                    updatedQuantity = updatedQuantity - quantity;
+                if (Display.checkInput(itemName)) return;
+                System.out.print("Enter Quantity/Enter `q` to go back to main menu\nInput: ");
+                String input = scanner.nextLine();
+                if (Display.checkInput(input)) return;
+                int requestedQuantity = Integer.parseInt(input);
+                item = getItemByName(itemName);
+                if (item != null && validateQuantity(requestedQuantity, item.getQuantity())) {
+                    int updatedQuantity = item.getQuantity() - requestedQuantity;
                     item.setQuantity(updatedQuantity);
                     String itemTitle = item.getTitle();
                     String cashierName = user.getFullName();
                     int receiptNumber = GenerateReceiptNumber.generateReceiptNumber();
-                    float amount = quantity * item.getPrice();
+                    float totalCost = requestedQuantity * item.getPrice();
                     TransactionType type = TransactionType.SELL;
-                    transactionList.add(new Transaction(itemTitle, quantity, cashierName, receiptNumber, amount, type));
+                    transactionList.add(new Transaction(itemTitle, requestedQuantity, cashierName, receiptNumber, totalCost, type));
                     break;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number for quantity ");
             }
         }
-        fileHandler1.writeToFile(transactionList, "assets/transactions.txt");
+        transactionFileHandler.writeToFile(transactionList, "assets/transactions.txt");
         fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        Display.returnMainMenu();
     }
 
     @Override
@@ -64,9 +67,10 @@ public class Cashier implements iCashier {
     @Override
     public void viewInventory() {
         displayInventory();
+        Display.returnMainMenu();
     }
 
-    public List<InventoryItem> getInventory() {
+    public void getInventory() {
         List<List<String>> result = fileHandler.readFromFile("assets/inventory.txt");
         for (List<String> strings : result) {
             int id = Integer.parseInt(strings.get(0));
@@ -76,10 +80,9 @@ public class Cashier implements iCashier {
             int quantity = Integer.parseInt(strings.get(4));
             inventory.add(new InventoryItem(id, title, description, price, quantity));
         }
-        return inventory;
     }
 
-    public List<Transaction> getAllTransactions() {
+    public void getAllTransactions() {
         List<List<String>> result = fileHandler.readFromFile("assets/transactions.txt");
         for (List<String> strings : result) {
             String inventoryItem = strings.get(0);
@@ -90,7 +93,6 @@ public class Cashier implements iCashier {
             TransactionType type = TransactionType.valueOf(strings.get(5));
             transactionList.add(new Transaction(inventoryItem, itemQuantity, cashierName, receiptNumber, amount, type));
         }
-        return transactionList;
     }
 
     public void displayInventory() {
@@ -111,27 +113,23 @@ public class Cashier implements iCashier {
         System.out.format(tableBorder);
     }
 
-    public boolean getItemByName(String itemName) {
-        InventoryItem item2;
+    public InventoryItem getItemByName(String itemName) {
         for (InventoryItem inventoryItem : inventory) {
-            String name = inventoryItem.getTitle();
-            if (name.equalsIgnoreCase(itemName)) {
-                item2 = inventoryItem;
-                item = item2;
-                return true;
+            if (inventoryItem.getTitle().equalsIgnoreCase(itemName)) {
+                return inventoryItem;
             }
         }
         System.out.println("Item unavailable");
-        return false;
+        return null;
     }
 
-    public boolean validateQuantity(int quantity, int itemQuantity) {
-        if (itemQuantity > 1 && quantity <= itemQuantity && quantity > 0) {
+    public boolean validateQuantity(int requestedQuantity, int itemQuantity) {
+        if (itemQuantity > 1 && requestedQuantity <= itemQuantity && requestedQuantity > 0) {
             return true;
+        } else if (requestedQuantity <= 0) {
+            System.out.println("Enter quantity value greater than zero");
         } else if (itemQuantity <= 1) {
             System.out.println("Out of stock");
-        } else if (quantity < 0) {
-            System.out.println("Enter quantity value greater than zero");
         } else {
             System.out.println("Insufficient quantity to sell");
         }

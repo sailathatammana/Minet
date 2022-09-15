@@ -1,6 +1,8 @@
 package utils;
 
-public class Transaction {
+import java.io.Serializable;
+
+public class Transaction implements Serializable {
     private String itemName;
     private int itemQuantity;
     private String cashierName;

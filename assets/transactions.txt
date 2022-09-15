@@ -1,1 +1,4 @@
 Tin can,1,Ravi,316,45.0,SELL
+Flashlight,1,Ravi,580747,100.0,SELL
+Flashlight,1,Sai,3917812,100.0,SELL
+Flashlight,1,Sai,4502461,100.0,SELL

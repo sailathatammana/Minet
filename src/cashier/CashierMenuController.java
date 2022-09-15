@@ -9,6 +9,7 @@ public class CashierMenuController extends BaseController<String> {
 
     @Override
     public String run() {
+        view.printBanner();
         String input = view.chooseOption();
         try {
             int selectedOption = Integer.parseInt(input);
