@@ -147,6 +147,12 @@ public class Cashier implements iCashier {
         Display.returnMainMenu();
     }
 
+    @Override
+    public void viewOrderList() {
+        displayOderList();
+        Display.returnMainMenu();
+    }
+
     public void getInventory() {
         List<List<String>> result = fileHandler.readFromFile("assets/inventory.txt");
         for (List<String> strings : result) {
@@ -199,6 +205,22 @@ public class Cashier implements iCashier {
             int quantity = inventoryItem.getQuantity();
             String stockStatus = inventoryItem.getStockStatus();
             System.out.format(tableFormat, id, title, price, quantity, stockStatus);
+        }
+        System.out.format(tableBorder);
+    }
+
+    public void displayOderList() {
+        String tableHeader = "| Product         | Qty  | CashierName     |%n";
+        String tableBorder = "+-----------------+------+-----------------+%n";
+        String tableFormat = "| %-15s | %-4d | %-15s |%n";
+        System.out.format(tableBorder);
+        System.out.format(tableHeader);
+        System.out.format(tableBorder);
+        for (OrderList orderList : orderLists) {
+            String title = orderList.getItem().getTitle();
+            int quantity = orderList.getItem().getQuantity();
+            String cashierName = orderList.getCashierName();
+            System.out.format(tableFormat, title, quantity, cashierName);
         }
         System.out.format(tableBorder);
     }

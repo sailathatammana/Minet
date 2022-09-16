@@ -16,6 +16,7 @@ public class CashierMenu {
                     case "Return an Item" -> cashier.returnItem();
                     case "Create order" -> cashier.createOrder();
                     case "View Inventory" -> cashier.viewInventory();
+                    case "View orderList" -> cashier.viewOrderList();
                 }
             }
         }

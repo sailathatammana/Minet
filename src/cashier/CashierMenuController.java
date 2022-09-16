@@ -24,10 +24,10 @@ public class CashierMenuController extends BaseController<String> {
 
     public int handleOption(int selectedOption) {
         switch (selectedOption) {
-            case 1, 2, 3, 4 -> {
+            case 1, 2, 3, 4, 5 -> {
                 return 1;
             }
-            case 5 -> Display.exit();
+            case 6 -> Display.exit();
             default -> throw new IndexOutOfBoundsException();
         }
         return -9;

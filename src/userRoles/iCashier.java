@@ -8,4 +8,6 @@ public interface iCashier {
     void returnItem();
 
     void viewInventory();
+
+    void viewOrderList();
 }
