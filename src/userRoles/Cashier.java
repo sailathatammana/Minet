@@ -1,7 +1,7 @@
 package userRoles;
 
-import viewOrderList.ViewOrderList;
 import utils.*;
+import viewOrderList.ViewOrderList;
 
 import java.util.*;
 
@@ -69,6 +69,7 @@ public class Cashier implements iCashier {
                 int requestedQuantity = Integer.parseInt(input);
                 item = getItemByName(itemName);
                 if (item != null && validatePositiveQuantity(requestedQuantity)) {
+                    if (validateItemInPool(itemName, requestedQuantity)) break;
                     int id = item.getId();
                     String itemTitle = item.getTitle();
                     String description = item.getDescription();
@@ -205,6 +206,22 @@ public class Cashier implements iCashier {
         }
         System.out.println("Item unavailable");
         return null;
+    }
+
+    public boolean validateItemInPool(String itemName, int requestedQuantity) {
+        for (OrderList orderList : orderLists) {
+            if (orderList.getItem().getTitle().equalsIgnoreCase(itemName)) {
+                if (!Objects.equals(orderList.getCashierName(), user.getFullName())) {
+                    System.out.println("Item already exist in order list with different cashier, so new order is creating");
+                    break;
+                }
+                System.out.println("Item already exist in order list with same cashier, adding requested quantity to the order");
+                orderList.getItem().setQuantity(orderList.getItem().getQuantity() + requestedQuantity);
+                return true;
+            }
+        }
+        // System.out.println("Item unavailable");
+        return false;
     }
 
     public boolean validateQuantity(int requestedQuantity, int itemQuantity) {
