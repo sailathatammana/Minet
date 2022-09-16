@@ -8,8 +8,10 @@ public class Cashier implements iCashier {
     //InventoryItem item = null;
     private List<InventoryItem> inventory = new ArrayList<InventoryItem>();
     private List<Transaction> transactionList = new ArrayList<Transaction>();
+    private List<OrderList> orderLists = new ArrayList<OrderList>();
     FileHandler<InventoryItem> fileHandler = new FileHandler<>();
     FileHandler<Transaction> transactionFileHandler = new FileHandler<>();
+    FileHandler<OrderList> orderListFileHandlerFileHandler = new FileHandler<>();
     Scanner scanner = new Scanner(System.in);
     User user;
 
@@ -17,6 +19,7 @@ public class Cashier implements iCashier {
         this.user = user;
         getInventory();
         getAllTransactions();
+        getAllOrderLists();
     }
 
     @Override
@@ -54,7 +57,33 @@ public class Cashier implements iCashier {
 
     @Override
     public void createOrder() {
-        System.out.println("Create Order");
+        while (true) {
+            InventoryItem item;
+            try {
+                System.out.print("Enter Item name/Enter `q` to go back to main menu\nInput:");
+                String itemName = scanner.nextLine();
+                if (Display.checkInput(itemName)) return;
+                System.out.print("Enter Quantity/Enter `q` to go back to main menu\nInput: ");
+                String input = scanner.nextLine();
+                if (Display.checkInput(input)) return;
+                int requestedQuantity = Integer.parseInt(input);
+                item = getItemByName(itemName);
+                if (item != null) {
+                    int id = item.getId();
+                    String itemTitle = item.getTitle();
+                    String description = item.getDescription();
+                    float price = item.getPrice();
+                    String cashierName = user.getFullName();
+                    orderLists.add(new OrderList(new InventoryItem(id, itemTitle, description, price, requestedQuantity), cashierName));
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number for quantity ");
+            }
+        }
+        orderListFileHandlerFileHandler.writeToFile(orderLists, "assets/orderlist.txt");
+        fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        Display.returnMainMenu();
     }
 
     @Override
@@ -140,6 +169,19 @@ public class Cashier implements iCashier {
             float amount = Float.parseFloat(strings.get(4));
             TransactionType type = TransactionType.valueOf(strings.get(5));
             transactionList.add(new Transaction(inventoryItem, itemQuantity, cashierName, receiptNumber, amount, type));
+        }
+    }
+
+    public void getAllOrderLists() {
+        List<List<String>> result = fileHandler.readFromFile("assets/orderlist.txt");
+        for (List<String> strings : result) {
+            int id = Integer.parseInt(strings.get(0));
+            String title = strings.get(1);
+            String description = strings.get(2);
+            float price = Float.parseFloat(strings.get(3));
+            int quantity = Integer.parseInt(strings.get(4));
+            String cashierName = strings.get(5);
+            orderLists.add(new OrderList(new InventoryItem(id, title, description, price, quantity), cashierName));
         }
     }
 
