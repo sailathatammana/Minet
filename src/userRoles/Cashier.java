@@ -2,9 +2,7 @@ package userRoles;
 
 import utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Cashier implements iCashier {
     //InventoryItem item = null;
@@ -61,7 +59,57 @@ public class Cashier implements iCashier {
 
     @Override
     public void returnItem() {
-        System.out.println("Return Item");
+        while (true) {
+            try {
+                Transaction transactionItem;
+                System.out.print("Enter Receipt Number/Enter `q` to go back to main menu\nInput:");
+                String input = scanner.nextLine();
+                if (Display.checkInput(input)) return;
+                int returnReceiptNumber = Integer.parseInt(input);
+                transactionItem = getItemByReceiptNumber(returnReceiptNumber);
+                if (transactionItem != null) {
+                    String returnedItemName = transactionItem.getItemName();
+                    int returnedItemQuantity = transactionItem.getItemQuantity();
+                    for (InventoryItem inventoryItem : inventory) {
+                        if (Objects.equals(inventoryItem.getTitle(), returnedItemName)) {
+                            int updateQuantity = inventoryItem.getQuantity() + returnedItemQuantity;
+                            inventoryItem.setQuantity(updateQuantity);
+                        }
+                    }
+                    String itemTitle = transactionItem.getItemName();
+                    String cashierName = user.getFullName();
+                    float totalCost = transactionItem.getAmount();
+                    TransactionType type = TransactionType.RETURN;
+                    transactionList.add(new Transaction(itemTitle, returnedItemQuantity, cashierName, returnReceiptNumber, totalCost, type));
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number");
+            }
+        }
+        transactionFileHandler.writeToFile(transactionList, "assets/transactions.txt");
+        fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        Display.returnMainMenu();
+    }
+
+    private Transaction getItemByReceiptNumber(int returnReceiptNumber) {
+        List<Integer> receiptNumberList = new ArrayList<>();
+        for (Transaction transactionItem : transactionList) {
+            receiptNumberList.add(transactionItem.getReceiptNumber());
+        }
+        int occurrences = Collections.frequency(receiptNumberList, returnReceiptNumber);
+        if (occurrences > 1) {
+            System.out.println("This item is already returned");
+            return null;
+        } else if (occurrences == 1) {
+            for (Transaction transactionItem : transactionList) {
+                if (transactionItem.getReceiptNumber() == returnReceiptNumber) {
+                    return transactionItem;
+                }
+            }
+        }
+        System.out.println("Invalid Receipt number");
+        return null;
     }
 
     @Override
