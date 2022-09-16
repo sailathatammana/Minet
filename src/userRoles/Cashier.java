@@ -1,11 +1,11 @@
 package userRoles;
 
+import viewOrderList.ViewOrderList;
 import utils.*;
 
 import java.util.*;
 
 public class Cashier implements iCashier {
-    //InventoryItem item = null;
     private List<InventoryItem> inventory = new ArrayList<InventoryItem>();
     private List<Transaction> transactionList = new ArrayList<Transaction>();
     private List<OrderList> orderLists = new ArrayList<OrderList>();
@@ -15,11 +15,11 @@ public class Cashier implements iCashier {
     Scanner scanner = new Scanner(System.in);
     User user;
 
-    public Cashier(User user) {
+    public Cashier(User user, List<OrderList> orderLists) {
         this.user = user;
         getInventory();
         getAllTransactions();
-        getAllOrderLists();
+        this.orderLists = orderLists;
     }
 
     @Override
@@ -149,7 +149,7 @@ public class Cashier implements iCashier {
 
     @Override
     public void viewOrderList() {
-        displayOderList();
+        new ViewOrderList(orderLists);
         Display.returnMainMenu();
     }
 
@@ -178,18 +178,6 @@ public class Cashier implements iCashier {
         }
     }
 
-    public void getAllOrderLists() {
-        List<List<String>> result = fileHandler.readFromFile("assets/orderlist.txt");
-        for (List<String> strings : result) {
-            int id = Integer.parseInt(strings.get(0));
-            String title = strings.get(1);
-            String description = strings.get(2);
-            float price = Float.parseFloat(strings.get(3));
-            int quantity = Integer.parseInt(strings.get(4));
-            String cashierName = strings.get(5);
-            orderLists.add(new OrderList(new InventoryItem(id, title, description, price, quantity), cashierName));
-        }
-    }
 
     public void displayInventory() {
         String tableHeader = "| Id    | Product         | Price   | Qty  | Status        |%n";
@@ -205,22 +193,6 @@ public class Cashier implements iCashier {
             int quantity = inventoryItem.getQuantity();
             String stockStatus = inventoryItem.getStockStatus();
             System.out.format(tableFormat, id, title, price, quantity, stockStatus);
-        }
-        System.out.format(tableBorder);
-    }
-
-    public void displayOderList() {
-        String tableHeader = "| Product         | Qty  | CashierName     |%n";
-        String tableBorder = "+-----------------+------+-----------------+%n";
-        String tableFormat = "| %-15s | %-4d | %-15s |%n";
-        System.out.format(tableBorder);
-        System.out.format(tableHeader);
-        System.out.format(tableBorder);
-        for (OrderList orderList : orderLists) {
-            String title = orderList.getItem().getTitle();
-            int quantity = orderList.getItem().getQuantity();
-            String cashierName = orderList.getCashierName();
-            System.out.format(tableFormat, title, quantity, cashierName);
         }
         System.out.format(tableBorder);
     }
