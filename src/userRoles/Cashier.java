@@ -68,7 +68,7 @@ public class Cashier implements iCashier {
                 if (Display.checkInput(input)) return;
                 int requestedQuantity = Integer.parseInt(input);
                 item = getItemByName(itemName);
-                if (item != null) {
+                if (item != null && validatePositiveQuantity(requestedQuantity)) {
                     int id = item.getId();
                     String itemTitle = item.getTitle();
                     String description = item.getDescription();
@@ -222,6 +222,15 @@ public class Cashier implements iCashier {
             System.out.println("Out of stock");
         } else {
             System.out.println("Insufficient quantity to sell");
+        }
+        return false;
+    }
+
+    public boolean validatePositiveQuantity(int requestedQuantity) {
+        if (requestedQuantity > 0) {
+            return true;
+        } else {
+            System.out.println("Enter quantity value greater than zero");
         }
         return false;
     }
