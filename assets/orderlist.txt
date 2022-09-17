@@ -1,5 +1,2 @@
-1,Pen,It is used to write,10.0,20,Ravi,PENDING
-2,Flashlight,A really great flashlight,100.0,12,Sai,PENDING
-1,Pen,It is used to write,10.0,31,Sai,PENDING
-2,Flashlight,A really great flashlight,100.0,5,Ravi,PENDING
-3,Tin can,Pretty much what you would expect from a tin can,45.0,1,Sai,PENDING
+6168,1,Pen,It is used to write,10.0,12,Ravi,PENDING
+5466,1,Pen,It is used to write,10.0,2,Sai,PENDING
