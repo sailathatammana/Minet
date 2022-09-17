@@ -53,6 +53,7 @@ public class InventoryItem implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        this.setStockStatus();
     }
 
     public String getStockStatus() {

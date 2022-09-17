@@ -188,7 +188,7 @@ public class Cashier extends Person implements iCashier {
     }
 
     public boolean validateQuantity(int requestedQuantity, int itemQuantity) {
-        if (itemQuantity > 1 && requestedQuantity <= itemQuantity && requestedQuantity > 0) {
+        if ((itemQuantity - requestedQuantity >= 1) && requestedQuantity <= itemQuantity && requestedQuantity > 0) {
             return true;
         } else if (requestedQuantity <= 0) {
             System.out.println("Enter quantity value greater than zero");

@@ -10,3 +10,8 @@ Flashlight,2,Ravi,9942914,200.0,SELL
 Tin can,2,Ravi,4924172,90.0,SELL
 Flashlight,1,Ravi,7173395,100.0,SELL
 Flashlight,1,Ravi,7479826,100.0,SELL
+Flashlight,7,Ravi,5017364,700.0,SELL
+Flashlight,1,Ravi,9179966,100.0,SELL
+Pen,14,Ravi,8474044,140.0,SELL
+Flashlight,2,Ravi,4020437,200.0,SELL
+Flashlight,2,Sai,4020437,200.0,RETURN
