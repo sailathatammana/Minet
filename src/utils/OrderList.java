@@ -7,11 +7,21 @@ public class OrderList implements Serializable {
     private InventoryItem item;
     private String cashierName;
     private OrderStatusType orderStatus;
+    private int orderId;
 
-    public OrderList(InventoryItem item, String cashierName, OrderStatusType orderStatus) {
+    public OrderList(int orderId, InventoryItem item, String cashierName, OrderStatusType orderStatus) {
+        this.orderId = orderId;
         this.item = item;
         this.cashierName = cashierName;
         this.orderStatus = orderStatus;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public InventoryItem getItem() {
@@ -40,6 +50,6 @@ public class OrderList implements Serializable {
 
     @Override
     public String toString() {
-        return item + "," + cashierName + "," + orderStatus;
+        return orderId + "," + item + "," + cashierName + "," + orderStatus;
     }
 }

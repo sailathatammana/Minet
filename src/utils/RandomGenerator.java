@@ -2,10 +2,10 @@ package utils;
 
 import java.util.Random;
 
-public class GenerateReceiptNumber {
-    public static int generateReceiptNumber() {
+public class RandomGenerator {
+    public static int generateRandomNumber(int length) {
         Random rnd = new Random();
-        int number = rnd.nextInt(9999999);
+        int number = rnd.nextInt(length);
         return Integer.parseInt(String.format("%07d", number));
     }
 }

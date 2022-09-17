@@ -6,3 +6,7 @@ Tin can,1,Sai,316,45.0,RETURN
 Flashlight,1,Sai,580747,100.0,RETURN
 Tin can,1,Sai,479281,45.0,SELL
 Tin can,1,Sai,479281,45.0,RETURN
+Flashlight,2,Ravi,9942914,200.0,SELL
+Tin can,2,Ravi,4924172,90.0,SELL
+Flashlight,1,Ravi,7173395,100.0,SELL
+Flashlight,1,Ravi,7479826,100.0,SELL
