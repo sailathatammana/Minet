@@ -10,15 +10,13 @@ import java.util.Scanner;
 
 public class Manager extends Person implements iManager {
     User user;
-    private final List<OrderList> orderLists;
     private final List<OrderList> orderedTransactionList = new ArrayList<>();
     FileHandler<OrderList> orderListFileHandler = new FileHandler<>();
     FileHandler<OrderList> orderedTransactionListFileHandler = new FileHandler<>();
     Scanner scanner = new Scanner(System.in);
 
-    public Manager(User user, List<OrderList> orderLists) {
+    public Manager(User user) {
         this.user = user;
-        this.orderLists = orderLists;
         getAllOrderedTransactionList();
     }
 
@@ -82,7 +80,7 @@ public class Manager extends Person implements iManager {
                 return orderListItem;
             }
         }
-        System.out.println("Item unavailable");
+        System.out.println("Invalid Order id");
         return null;
     }
 

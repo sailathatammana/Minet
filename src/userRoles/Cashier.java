@@ -7,17 +7,15 @@ import java.util.*;
 
 public class Cashier extends Person implements iCashier {
     private List<Transaction> transactionList = new ArrayList<Transaction>();
-    private List<OrderList> orderLists;
     FileHandler<Transaction> transactionFileHandler = new FileHandler<>();
     FileHandler<OrderList> orderListFileHandlerFileHandler = new FileHandler<>();
     Scanner scanner = new Scanner(System.in);
     User user;
 
-    public Cashier(User user, List<OrderList> orderLists) {
+    public Cashier(User user) {
         super();
         this.user = user;
         getAllTransactions();
-        this.orderLists = orderLists;
     }
 
     @Override
@@ -30,7 +28,10 @@ public class Cashier extends Person implements iCashier {
                 if (Display.checkInput(itemName)) return;
                 System.out.print("Enter Quantity/Enter `q` to go back to main menu\nInput: ");
                 String input = scanner.nextLine();
-                if (Display.checkInput(input)) return;
+                if (Display.checkInput(input)) {
+                    Display.clearScreen();
+                    return;
+                }
                 int requestedQuantity = Integer.parseInt(input);
                 item = getItemByName(itemName);
                 if (item != null && validateQuantity(requestedQuantity, item.getQuantity())) {

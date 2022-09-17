@@ -1,18 +1,19 @@
 package cashier;
 
-import data.OrderListPool;
 import userRoles.Cashier;
-import utils.OrderList;
 import utils.User;
 
-import java.util.List;
+public class CashierMenu implements Runnable {
+    CashierMenuController controller;
+    User user;
 
-public class CashierMenu {
-    CashierMenuController controller = new CashierMenuController();
+    public CashierMenu(User user) {
+        this.controller = new CashierMenuController();
+        this.user = user;
+    }
 
-    public void start(User user) {
-        List<OrderList> orderLists = OrderListPool.getAllOrderLists();
-        Cashier cashier = new Cashier(user, orderLists);
+    public void started() {
+        Cashier cashier = new Cashier(user);
         while (true) {
             String cashierAction = controller.run();
             if (controller.model.menuOptions.contains(cashierAction)) {
@@ -25,5 +26,10 @@ public class CashierMenu {
                 }
             }
         }
+    }
+
+    @Override
+    public void run() {
+        started();
     }
 }

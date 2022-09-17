@@ -8,11 +8,11 @@ public class CashierMenuView extends BaseView {
     private List<String> menuOptions;
 
     public CashierMenuView(List<String> menuOptions) {
+        clearScreen();
         this.menuOptions = menuOptions;
     }
 
     public void printBanner() {
-        clearScreen();
         System.out.println("Cashier menu options:");
         displayList(menuOptions);
     }

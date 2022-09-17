@@ -8,11 +8,11 @@ public class ManagerMenuView extends BaseView {
     private final List<String> menuOptions;
 
     public ManagerMenuView(List<String> menuOptions) {
+        clearScreen();
         this.menuOptions = menuOptions;
     }
 
     public void printBanner() {
-        clearScreen();
         System.out.println("Cashier menu options:");
         displayList(menuOptions);
     }

@@ -56,8 +56,9 @@ public class LoginMenu {
         String userRole = controller.model.users.get(userIndex).getUserRole();
         switch (userRole.toLowerCase()) {
             case "cashier" -> {
-                CashierMenu cashierMenu = new CashierMenu();
-                cashierMenu.start(currentUser);
+                    CashierMenu cashierMenu = new CashierMenu(currentUser);
+                    Thread thread = new Thread(cashierMenu);
+                    thread.start();
             }
             case "manager" -> {
                 ManagerMenu managerMenu = new ManagerMenu();

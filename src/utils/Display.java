@@ -6,6 +6,24 @@ import java.util.Scanner;
 public class Display {
     static Scanner scanner = new Scanner(System.in);
 
+    private static void welcomeMsg() {
+        System.out.println("Welcome to Warehouse.\n");
+    }
+
+    public static void clearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                welcomeMsg();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+                welcomeMsg();
+            }
+        } catch (Exception E) {
+            System.out.println(E);
+        }
+    }
+
     public static void exit() {
         System.out.println("Thank you for shopping!");
         System.exit(1);

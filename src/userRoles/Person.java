@@ -1,8 +1,10 @@
 package userRoles;
 
+import data.OrderListPool;
 import utils.Display;
 import utils.FileHandler;
 import utils.InventoryItem;
+import utils.OrderList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +12,12 @@ import java.util.List;
 public class Person {
     protected List<InventoryItem> inventory = new ArrayList<InventoryItem>();
     FileHandler<InventoryItem> fileHandler = new FileHandler<>();
+    List<OrderList> orderLists;
+
 
     public Person() {
         getInventory();
+        this.orderLists = OrderListPool.getAllOrderLists();
     }
 
     public void viewInventory() {
