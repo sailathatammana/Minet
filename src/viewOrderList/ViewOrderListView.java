@@ -13,8 +13,8 @@ public class ViewOrderListView {
     }
 
     private void showTable(List<OrderList> orderLists) {
-        List<Integer> columnWidths = List.of(15, 4, 15);
-        List<String> headers = List.of("Product", "Qty", "CashierName");
+        List<Integer> columnWidths = List.of(15, 4, 15, 10);
+        List<String> headers = List.of("Product", "Qty", "CashierName", "Status");
         List<List<String>> body = parseOrder(orderLists);
         Table table = new Table(columnWidths, headers, body);
         table.showData();
@@ -26,7 +26,8 @@ public class ViewOrderListView {
             String title = item.getItem().getTitle();
             String quantity = String.valueOf(item.getItem().getQuantity());
             String cashierName = item.getCashierName();
-            List<String> data = List.of(title, quantity, cashierName);
+            String orderStatus = String.valueOf(item.getOrderStatus());
+            List<String> data = List.of(title, quantity, cashierName, orderStatus);
 
             result.add(data);
         }

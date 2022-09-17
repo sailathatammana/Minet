@@ -8,7 +8,7 @@ import java.util.*;
 public class Cashier implements iCashier {
     private List<InventoryItem> inventory = new ArrayList<InventoryItem>();
     private List<Transaction> transactionList = new ArrayList<Transaction>();
-    private List<OrderList> orderLists = new ArrayList<OrderList>();
+    private List<OrderList> orderLists;
     FileHandler<InventoryItem> fileHandler = new FileHandler<>();
     FileHandler<Transaction> transactionFileHandler = new FileHandler<>();
     FileHandler<OrderList> orderListFileHandlerFileHandler = new FileHandler<>();
@@ -75,7 +75,8 @@ public class Cashier implements iCashier {
                     String description = item.getDescription();
                     float price = item.getPrice();
                     String cashierName = user.getFullName();
-                    orderLists.add(new OrderList(new InventoryItem(id, itemTitle, description, price, requestedQuantity), cashierName));
+                    OrderStatusType orderStatus = OrderStatusType.PENDING;
+                    orderLists.add(new OrderList(new InventoryItem(id, itemTitle, description, price, requestedQuantity), cashierName, orderStatus));
                     break;
                 }
             } catch (NumberFormatException e) {
@@ -179,7 +180,6 @@ public class Cashier implements iCashier {
         }
     }
 
-
     public void displayInventory() {
         String tableHeader = "| Id    | Product         | Price   | Qty  | Status        |%n";
         String tableBorder = "+-------+-----------------+---------+------+---------------+%n";
@@ -209,19 +209,19 @@ public class Cashier implements iCashier {
     }
 
     public boolean validateItemInPool(String itemName, int requestedQuantity) {
+        int matchItemIndex = -80;
         for (OrderList orderList : orderLists) {
-            if (orderList.getItem().getTitle().equalsIgnoreCase(itemName)) {
-                if (!Objects.equals(orderList.getCashierName(), user.getFullName())) {
-                    System.out.println("Item already exist in order list with different cashier, so new order is creating");
-                    break;
-                }
-                System.out.println("Item already exist in order list with same cashier, adding requested quantity to the order");
-                orderList.getItem().setQuantity(orderList.getItem().getQuantity() + requestedQuantity);
-                return true;
+            if (orderList.getItem().getTitle().equalsIgnoreCase(itemName) && (Objects.equals(orderList.getCashierName(), user.getFullName()))) {
+                matchItemIndex = orderLists.indexOf(orderList);
             }
         }
-        // System.out.println("Item unavailable");
-        return false;
+        if (matchItemIndex == -80) {
+            return false;
+        } else {
+            int updatedQuantity = orderLists.get(matchItemIndex).getItem().getQuantity() + requestedQuantity;
+            orderLists.get(matchItemIndex).getItem().setQuantity(updatedQuantity);
+            return true;
+        }
     }
 
     public boolean validateQuantity(int requestedQuantity, int itemQuantity) {

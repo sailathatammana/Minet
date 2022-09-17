@@ -3,6 +3,7 @@ package data;
 import utils.FileHandler;
 import utils.InventoryItem;
 import utils.OrderList;
+import utils.OrderStatusType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,8 @@ public class OrderListPool {
             float price = Float.parseFloat(strings.get(3));
             int quantity = Integer.parseInt(strings.get(4));
             String cashierName = strings.get(5);
-            orderLists.add(new OrderList(new InventoryItem(id, title, description, price, quantity), cashierName));
+            OrderStatusType orderStatus = OrderStatusType.valueOf(strings.get(6));
+            orderLists.add(new OrderList(new InventoryItem(id, title, description, price, quantity), cashierName, orderStatus));
         }
         return orderLists;
     }

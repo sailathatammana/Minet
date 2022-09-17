@@ -6,10 +6,12 @@ public class OrderList implements Serializable {
 
     private InventoryItem item;
     private String cashierName;
+    private OrderStatusType orderStatus;
 
-    public OrderList(InventoryItem item, String cashierName) {
+    public OrderList(InventoryItem item, String cashierName, OrderStatusType orderStatus) {
         this.item = item;
         this.cashierName = cashierName;
+        this.orderStatus = orderStatus;
     }
 
     public InventoryItem getItem() {
@@ -28,8 +30,16 @@ public class OrderList implements Serializable {
         this.cashierName = cashierName;
     }
 
+    public OrderStatusType getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatusType orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     @Override
     public String toString() {
-        return item + "," + cashierName;
+        return item + "," + cashierName + "," + orderStatus;
     }
 }
