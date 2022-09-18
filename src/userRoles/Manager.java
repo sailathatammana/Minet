@@ -31,27 +31,21 @@ public class Manager extends Person implements iManager {
                 System.out.print("Enter yes to approve and No to reject/Enter `q` to go back to main menu\nInput:");
                 String confirmOrder = scanner.nextLine();
                 if (Display.checkInput(confirmOrder)) return;
-                if (Objects.equals(confirmOrder.toLowerCase(), "yes")) {
-                    item.setOrderStatus(OrderStatusType.APPROVED);
+                if ((Objects.equals(confirmOrder.toLowerCase(), "yes")) || (Objects.equals(confirmOrder.toLowerCase(), "no"))) {
                     String itemName = item.getItem().getTitle();
                     int itemQuantity = item.getItem().getQuantity();
                     int id = item.getItem().getId();
                     String description = item.getItem().getDescription();
                     float price = item.getItem().getPrice();
-                    var newItem = inventory.stream().filter(x -> x.getTitle().equals(itemName)).findFirst();
-                    newItem.ifPresent(value -> newItem.get().setQuantity(newItem.get().getQuantity() + itemQuantity));
-                    System.out.println("Order " + item.getOrderId() + " is approved and updating the inventory");
-                    orderLists.remove(item);
-                    orderedTransactionList.add(new OrderList(item.getOrderId(), (new InventoryItem(id, itemName, description, price, itemQuantity)), item.getCashierName(), item.getOrderStatus()));
-                    break;
-                } else if (Objects.equals(confirmOrder.toLowerCase(), "no")) {
-                    item.setOrderStatus(OrderStatusType.REJECTED);
-                    String itemName = item.getItem().getTitle();
-                    int itemQuantity = item.getItem().getQuantity();
-                    int id = item.getItem().getId();
-                    String description = item.getItem().getDescription();
-                    float price = item.getItem().getPrice();
-                    System.out.println("Order " + item.getOrderId() + " is rejected");
+                    if ((Objects.equals(confirmOrder.toLowerCase(), "yes"))) {
+                        item.setOrderStatus(OrderStatusType.APPROVED);
+                        var newItem = inventory.stream().filter(x -> x.getTitle().equals(itemName)).findFirst();
+                        newItem.ifPresent(value -> newItem.get().setQuantity(newItem.get().getQuantity() + itemQuantity));
+                        System.out.println("Order " + item.getOrderId() + " is approved and updating the inventory");
+                    } else {
+                        item.setOrderStatus(OrderStatusType.REJECTED);
+                        System.out.println("Order " + item.getOrderId() + " is rejected");
+                    }
                     orderLists.remove(item);
                     orderedTransactionList.add(new OrderList(item.getOrderId(), (new InventoryItem(id, itemName, description, price, itemQuantity)), item.getCashierName(), item.getOrderStatus()));
                     break;

@@ -4,3 +4,5 @@
 7484,2,Flashlight,A really great flashlight,100.0,2,Sai,REJECTED
 3809,2,Flashlight,A really great flashlight,100.0,5,Sai,APPROVED
 1589,2,Flashlight,A really great flashlight,100.0,10,Ravi,REJECTED
+3037,3,Tin can,Pretty much what you would expect from a tin can,45.0,2,Sai,APPROVED
+5590,3,Tin can,Pretty much what you would expect from a tin can,45.0,15,Ravi,REJECTED
