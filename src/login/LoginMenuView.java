@@ -15,11 +15,14 @@ public class LoginMenuView extends BaseView {
     }
 
     public String printPasswordPrompt() {
+        Console console = System.console();
+        if (console == null) {
+            System.out.print("Please Enter password: ");
+            return scanner.nextLine();
+        }
         System.out.print("Please Enter password: ");
-        return scanner.nextLine();
-        /*Console console = System.console();
         char[] password = console.readPassword();
-        return String.valueOf(password);*/
+        return String.valueOf(password);
     }
 
     public void printInvalidCred() {
