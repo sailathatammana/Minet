@@ -1,5 +1,6 @@
 package userRoles;
 
+import data.OrderListPool;
 import utils.*;
 import viewOrderList.ViewOrderList;
 
@@ -19,6 +20,8 @@ public class Manager extends Person implements iManager {
 
     @Override
     public void viewOrderList() {
+        this.orderLists.clear();
+        this.orderLists = OrderListPool.getAllOrderLists();
         new ViewOrderList(orderLists);
         OrderList item;
         while (true) {
@@ -59,7 +62,11 @@ public class Manager extends Person implements iManager {
             }
         }
         orderListFileHandler.writeToFile(orderLists, "assets/orderlist.txt");
+        this.orderLists.clear();
+        this.orderLists = OrderListPool.getAllOrderLists();
         fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        this.inventory.clear();
+        this.getfullInventory();
         orderedTransactionListFileHandler.writeToFile(orderedTransactionList, "assets/OrderedTransactionList.txt");
         Display.returnMainMenu();
     }

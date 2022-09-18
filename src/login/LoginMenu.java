@@ -57,6 +57,7 @@ public class LoginMenu {
             case "cashier" -> {
                 CashierMenu cashierMenu = new CashierMenu(currentUser);
                 Thread thread = new Thread(cashierMenu);
+                thread.setName(currentUser.getFullName());
                 thread.start();
             }
             case "manager" -> {

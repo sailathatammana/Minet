@@ -29,6 +29,8 @@ public class Person {
     }
 
     public void viewInventory() {
+        this.inventory.clear();
+        this.getfullInventory();
         displayInventory();
         Display.returnMainMenu();
     }

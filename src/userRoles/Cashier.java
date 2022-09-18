@@ -1,5 +1,6 @@
 package userRoles;
 
+import data.OrderListPool;
 import utils.*;
 import viewOrderList.ViewOrderList;
 
@@ -57,6 +58,8 @@ public class Cashier extends Person implements iCashier {
         }
         transactionFileHandler.writeToFile(transactionList, "assets/transactions.txt");
         fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        this.inventory.clear();
+        this.getfullInventory();
         Display.returnMainMenu();
     }
 
@@ -92,7 +95,9 @@ public class Cashier extends Person implements iCashier {
             }
         }
         orderListFileHandlerFileHandler.writeToFile(orderLists, "assets/orderlist.txt");
-        fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        this.orderLists.clear();
+        this.orderLists = OrderListPool.getAllOrderLists();
+        //fileHandler.writeToFile(inventory, "assets/inventory.txt");
         Display.returnMainMenu();
     }
 
@@ -125,6 +130,8 @@ public class Cashier extends Person implements iCashier {
         }
         transactionFileHandler.writeToFile(transactionList, "assets/transactions.txt");
         fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        this.inventory.clear();
+        this.getfullInventory();
         Display.returnMainMenu();
     }
 
@@ -147,6 +154,8 @@ public class Cashier extends Person implements iCashier {
 
     @Override
     public void viewOrderList() {
+        this.orderLists.clear();
+        this.orderLists = OrderListPool.getAllOrderLists();
         new ViewOrderList(orderLists);
         Display.returnMainMenu();
     }
