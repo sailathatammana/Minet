@@ -18,6 +18,10 @@ public class Cashier extends Person implements iCashier {
         getAllTransactions();
     }
 
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
     @Override
     public void sellItem() {
         while (true) {
@@ -124,7 +128,7 @@ public class Cashier extends Person implements iCashier {
         Display.returnMainMenu();
     }
 
-    private Transaction getItemByReceiptNumber(int returnReceiptNumber) {
+    public Transaction getItemByReceiptNumber(int returnReceiptNumber) {
         List<Integer> receiptNumberList = transactionList.stream()
                 .map(Transaction::getReceiptNumber)
                 .toList();

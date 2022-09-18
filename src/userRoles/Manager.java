@@ -64,7 +64,7 @@ public class Manager extends Person implements iManager {
         Display.returnMainMenu();
     }
 
-    private OrderList getItemById(int requestedOrderId) {
+    public OrderList getItemById(int requestedOrderId) {
         var isItemAvailable = orderLists.stream()
                 .filter(item -> item.getOrderId() == requestedOrderId).findFirst();
         return isItemAvailable.get();

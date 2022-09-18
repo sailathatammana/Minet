@@ -30,7 +30,7 @@ public class LoginMenu {
         }
     }
 
-    private boolean validateLoginDetails(String userName, String encryptedPassword) {
+    public boolean validateLoginDetails(String userName, String encryptedPassword) {
         var user = controller.model.users.stream()
                 .filter(item -> (item.getUserName().equals(userName)) && (item.getPassword().equals(encryptedPassword)))
                 .findFirst();

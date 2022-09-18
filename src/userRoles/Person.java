@@ -12,12 +12,20 @@ import java.util.List;
 public class Person {
     protected List<InventoryItem> inventory = new ArrayList<InventoryItem>();
     FileHandler<InventoryItem> fileHandler = new FileHandler<>();
-    List<OrderList> orderLists;
+    protected List<OrderList> orderLists;
 
 
     public Person() {
-        getInventory();
+        getfullInventory();
         this.orderLists = OrderListPool.getAllOrderLists();
+    }
+
+    public List<InventoryItem> getInventoryList() {
+        return inventory;
+    }
+
+    public List<OrderList> getOrderLists() {
+        return orderLists;
     }
 
     public void viewInventory() {
@@ -25,7 +33,8 @@ public class Person {
         Display.returnMainMenu();
     }
 
-    public void getInventory() {
+
+    public void getfullInventory() {
         List<List<String>> result = fileHandler.readFromFile("assets/inventory.txt");
         result.forEach(item -> {
             int id = Integer.parseInt(item.get(0));
