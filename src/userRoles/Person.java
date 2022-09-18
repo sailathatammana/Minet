@@ -27,14 +27,14 @@ public class Person {
 
     public void getInventory() {
         List<List<String>> result = fileHandler.readFromFile("assets/inventory.txt");
-        for (List<String> strings : result) {
-            int id = Integer.parseInt(strings.get(0));
-            String title = strings.get(1);
-            String description = strings.get(2);
-            float price = Float.parseFloat(strings.get(3));
-            int quantity = Integer.parseInt(strings.get(4));
+        result.forEach(item -> {
+            int id = Integer.parseInt(item.get(0));
+            String title = item.get(1);
+            String description = item.get(2);
+            float price = Float.parseFloat(item.get(3));
+            int quantity = Integer.parseInt(item.get(4));
             inventory.add(new InventoryItem(id, title, description, price, quantity));
-        }
+        });
     }
 
     public void displayInventory() {
@@ -44,14 +44,14 @@ public class Person {
         System.out.format(tableBorder);
         System.out.format(tableHeader);
         System.out.format(tableBorder);
-        for (InventoryItem inventoryItem : inventory) {
-            int id = inventoryItem.getId();
-            String title = inventoryItem.getTitle();
-            float price = inventoryItem.getPrice();
-            int quantity = inventoryItem.getQuantity();
-            String stockStatus = inventoryItem.getStockStatus();
+        inventory.forEach(item -> {
+            int id = item.getId();
+            String title = item.getTitle();
+            float price = item.getPrice();
+            int quantity = item.getQuantity();
+            String stockStatus = item.getStockStatus();
             System.out.format(tableFormat, id, title, price, quantity, stockStatus);
-        }
+        });
         System.out.format(tableBorder);
     }
 }

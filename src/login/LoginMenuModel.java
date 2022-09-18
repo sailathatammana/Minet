@@ -11,12 +11,9 @@ public class LoginMenuModel {
 
     FileHandler<User> fileHandler = new FileHandler<>();
 
-    public List<User> getAllUsers() {
+    public void getAllUsers() {
         List<List<String>> result = fileHandler.readFromFile("assets/users.txt");
-        for (List<String> strings : result) {
-            users.add(new User(strings.get(0), strings.get(1), strings.get(2), strings.get(3)));
-        }
-        return users;
+        result.forEach(item -> users.add(new User(item.get(0), item.get(1), item.get(2), item.get(3))));
     }
 
 }

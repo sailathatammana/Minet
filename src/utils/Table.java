@@ -19,7 +19,7 @@ public class Table {
     }
 
     // Public
-    public void showData()  {
+    public void showData() {
         generateBorder();
         generateHeader();
         generateBorder();
@@ -33,12 +33,8 @@ public class Table {
         String prefix = "| %-";
         String postfix = "s ";
         String endingCharacter = "|%n";
-
-        for (int item: columnWidth) {
-            result.append(prefix).append(item).append(postfix);
-        }
+        columnWidth.forEach(item -> result.append(prefix).append(item).append(postfix));
         result.append(endingCharacter);
-
         return result.toString();
     }
 
@@ -46,18 +42,13 @@ public class Table {
         StringBuilder result = new StringBuilder();
         String prefix = "+";
         String endingCharacter = "+";
-
-        for (int item: columnWidth) {
-            result.append(prefix).append(createBorderCell(item));
-        }
+        columnWidth.forEach(item -> result.append(prefix).append(createBorderCell(item)));
         result.append(endingCharacter);
-
         return result.toString();
     }
 
     private String createBorderCell(int width) {
         int padding = 2;
-
         return "-".repeat(Math.max(0, width + padding));
     }
 
@@ -66,9 +57,7 @@ public class Table {
     }
 
     private void generateBody() {
-        for (List<String> item : body) {
-            System.out.format(format, item.toArray());
-        }
+        body.forEach(item -> System.out.format(format, item.toArray()));
     }
 
     private void generateBorder() {

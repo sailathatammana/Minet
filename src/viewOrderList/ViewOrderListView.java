@@ -22,17 +22,15 @@ public class ViewOrderListView {
 
     private List<List<String>> parseOrder(List<OrderList> orderLists) {
         List<List<String>> result = new ArrayList<>();
-        for (OrderList item : orderLists) {
+        orderLists.forEach(item -> {
             String index = String.valueOf(item.getOrderId());
             String title = item.getItem().getTitle();
             String quantity = String.valueOf(item.getItem().getQuantity());
             String cashierName = item.getCashierName();
             String orderStatus = String.valueOf(item.getOrderStatus());
             List<String> data = List.of(index, title, quantity, cashierName, orderStatus);
-
             result.add(data);
-        }
-
+        });
         return result;
     }
 }

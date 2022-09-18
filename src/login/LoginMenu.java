@@ -31,13 +31,12 @@ public class LoginMenu {
     }
 
     private boolean validateLoginDetails(String userName, String encryptedPassword) {
-        for (User userData : controller.model.users) {
-            if ((userData.getUserName().equals(userName)) && (userData.getPassword().equals(encryptedPassword))) {
-                userIndex = controller.model.users.indexOf(userData);
-                return true;
-            }
-        }
-        return false;
+        var user = controller.model.users.stream()
+                .filter(item -> (item.getUserName().equals(userName)) && (item.getPassword().equals(encryptedPassword)))
+                .findFirst();
+        boolean check = user.isPresent();
+        user.ifPresent((userId) -> userIndex = controller.model.users.indexOf(user.get()));
+        return check;
     }
 
     private void validateRole() {
@@ -56,9 +55,9 @@ public class LoginMenu {
         String userRole = controller.model.users.get(userIndex).getUserRole();
         switch (userRole.toLowerCase()) {
             case "cashier" -> {
-                    CashierMenu cashierMenu = new CashierMenu(currentUser);
-                    Thread thread = new Thread(cashierMenu);
-                    thread.start();
+                CashierMenu cashierMenu = new CashierMenu(currentUser);
+                Thread thread = new Thread(cashierMenu);
+                thread.start();
             }
             case "manager" -> {
                 ManagerMenu managerMenu = new ManagerMenu();

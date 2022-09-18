@@ -5,7 +5,7 @@ import mvc.BaseView;
 import java.util.List;
 
 public class CashierMenuView extends BaseView {
-    private List<String> menuOptions;
+    private final List<String> menuOptions;
 
     public CashierMenuView(List<String> menuOptions) {
         clearScreen();

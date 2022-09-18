@@ -34,7 +34,7 @@ public class Cashier extends Person implements iCashier {
                 }
                 int requestedQuantity = Integer.parseInt(input);
                 item = getItemByName(itemName);
-                if (item != null && validateQuantity(requestedQuantity, item.getQuantity())) {
+                if (validateQuantity(requestedQuantity, item.getQuantity())) {
                     int updatedQuantity = item.getQuantity() - requestedQuantity;
                     item.setQuantity(updatedQuantity);
                     String itemTitle = item.getTitle();
@@ -47,6 +47,8 @@ public class Cashier extends Person implements iCashier {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number for quantity ");
+            } catch (NoSuchElementException e) {
+                System.out.println("Item unavailable");
             }
         }
         transactionFileHandler.writeToFile(transactionList, "assets/transactions.txt");
@@ -67,7 +69,7 @@ public class Cashier extends Person implements iCashier {
                 if (Display.checkInput(input)) return;
                 int requestedQuantity = Integer.parseInt(input);
                 item = getItemByName(itemName);
-                if (item != null && validatePositiveQuantity(requestedQuantity)) {
+                if (validatePositiveQuantity(requestedQuantity)) {
                     if (validateItemInPool(itemName, requestedQuantity)) break;
                     int orderId = RandomGenerator.generateRandomNumber(9999);
                     int id = item.getId();
@@ -81,6 +83,8 @@ public class Cashier extends Person implements iCashier {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number for quantity ");
+            } catch (NoSuchElementException e) {
+                System.out.println("Item unavailable");
             }
         }
         orderListFileHandlerFileHandler.writeToFile(orderLists, "assets/orderlist.txt");
@@ -101,12 +105,9 @@ public class Cashier extends Person implements iCashier {
                 if (transactionItem != null) {
                     String returnedItemName = transactionItem.getItemName();
                     int returnedItemQuantity = transactionItem.getItemQuantity();
-                    for (InventoryItem inventoryItem : inventory) {
-                        if (Objects.equals(inventoryItem.getTitle(), returnedItemName)) {
-                            int updateQuantity = inventoryItem.getQuantity() + returnedItemQuantity;
-                            inventoryItem.setQuantity(updateQuantity);
-                        }
-                    }
+                    var inventoryItem = inventory.stream()
+                            .filter(item -> Objects.equals(item.getTitle(), returnedItemName)).findFirst();
+                    inventoryItem.get().setQuantity(inventoryItem.get().getQuantity() + returnedItemQuantity);
                     String itemTitle = transactionItem.getItemName();
                     String cashierName = user.getFullName();
                     float totalCost = transactionItem.getAmount();
@@ -124,20 +125,17 @@ public class Cashier extends Person implements iCashier {
     }
 
     private Transaction getItemByReceiptNumber(int returnReceiptNumber) {
-        List<Integer> receiptNumberList = new ArrayList<>();
-        for (Transaction transactionItem : transactionList) {
-            receiptNumberList.add(transactionItem.getReceiptNumber());
-        }
+        List<Integer> receiptNumberList = transactionList.stream()
+                .map(Transaction::getReceiptNumber)
+                .toList();
         int occurrences = Collections.frequency(receiptNumberList, returnReceiptNumber);
         if (occurrences > 1) {
             System.out.println("This item is already returned");
             return null;
         } else if (occurrences == 1) {
-            for (Transaction transactionItem : transactionList) {
-                if (transactionItem.getReceiptNumber() == returnReceiptNumber) {
-                    return transactionItem;
-                }
-            }
+            var isReceiptNumberAvailable = transactionList.stream()
+                    .filter(item -> item.getReceiptNumber() == returnReceiptNumber).findFirst();
+            return isReceiptNumberAvailable.get();
         }
         System.out.println("Invalid Receipt number");
         return null;
@@ -163,29 +161,22 @@ public class Cashier extends Person implements iCashier {
     }
 
     public InventoryItem getItemByName(String itemName) {
-        for (InventoryItem inventoryItem : inventory) {
-            if (inventoryItem.getTitle().equalsIgnoreCase(itemName)) {
-                return inventoryItem;
-            }
-        }
-        System.out.println("Item unavailable");
-        return null;
+        var isItemAvailable = inventory.stream()
+                .filter(item -> item.getTitle().equalsIgnoreCase(itemName)).findFirst();
+        return isItemAvailable.get();
     }
 
     public boolean validateItemInPool(String itemName, int requestedQuantity) {
-        int matchItemIndex = -80;
-        for (OrderList orderList : orderLists) {
-            if (orderList.getItem().getTitle().equalsIgnoreCase(itemName) && (Objects.equals(orderList.getCashierName(), user.getFullName()))) {
-                matchItemIndex = orderLists.indexOf(orderList);
-            }
-        }
-        if (matchItemIndex == -80) {
-            return false;
-        } else {
+        var matchItem = orderLists.stream()
+                .filter(item -> item.getItem().getTitle().equalsIgnoreCase(itemName) && (Objects.equals(item.getCashierName(), user.getFullName())))
+                .findFirst();
+        boolean check = matchItem.isPresent();
+        matchItem.ifPresent(item -> {
+            int matchItemIndex = orderLists.indexOf(matchItem.get());
             int updatedQuantity = orderLists.get(matchItemIndex).getItem().getQuantity() + requestedQuantity;
             orderLists.get(matchItemIndex).getItem().setQuantity(updatedQuantity);
-            return true;
-        }
+        });
+        return check;
     }
 
     public boolean validateQuantity(int requestedQuantity, int itemQuantity) {
