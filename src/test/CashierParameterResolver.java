@@ -11,12 +11,12 @@ public class CashierParameterResolver implements ParameterResolver {
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return parameterContext.getParameter().getType()== Cashier.class;
+        return parameterContext.getParameter().getType() == Cashier.class;
     }
 
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return new Cashier(new User("Ravi","ravi",
-                "108317418603245272581161763738331279269013253057951070798501290887753974195791","Cashier"));
+        return new Cashier(new User("Ravi", "ravi",
+                "108317418603245272581161763738331279269013253057951070798501290887753974195791", "Cashier"));
     }
 }

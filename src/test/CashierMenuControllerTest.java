@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CashierMenuControllerTest {
 
-    CashierMenuController controller=new CashierMenuController();
+    CashierMenuController controller = new CashierMenuController();
 
     @Test
     @DisplayName("check handle option")
     public void checkHandleOptionTest() {
-        assertEquals(1,controller.handleOption(3));
-        assertEquals(1,controller.handleOption(4));
-        assertThrows(IndexOutOfBoundsException.class,()->controller.handleOption(-9));
+        assertEquals(1, controller.handleOption(3));
+        assertEquals(1, controller.handleOption(4));
+        assertThrows(IndexOutOfBoundsException.class, () -> controller.handleOption(-9));
     }
 
 }
