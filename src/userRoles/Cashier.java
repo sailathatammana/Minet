@@ -1,17 +1,18 @@
 package userRoles;
 
+import actions.CreateOrder;
 import actions.ReturnItem;
 import actions.SellItem;
 import data.OrderListPool;
 import utils.*;
 import viewOrderList.ViewOrderList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Cashier extends Person implements iCashier {
     private List<Transaction> transactionList = new ArrayList<Transaction>();
-    FileHandler<OrderList> orderListFileHandlerFileHandler = new FileHandler<>();
-    Scanner scanner = new Scanner(System.in);
     User user;
 
     public Cashier(User user) {
@@ -40,39 +41,14 @@ public class Cashier extends Person implements iCashier {
 
     @Override
     public void createOrder() {
-        while (true) {
-            InventoryItem item;
-            try {
-                System.out.print("Enter Item name/Enter `q` to go back to main menu\nInput:");
-                String itemName = scanner.nextLine();
-                if (Display.checkInput(itemName)) return;
-                System.out.print("Enter Quantity/Enter `q` to go back to main menu\nInput: ");
-                String input = scanner.nextLine();
-                if (Display.checkInput(input)) return;
-                int requestedQuantity = Integer.parseInt(input);
-                item = getItemByName(itemName);
-                if (validatePositiveQuantity(requestedQuantity)) {
-                    if (validateItemInPool(itemName, requestedQuantity)) break;
-                    int orderId = RandomGenerator.generateRandomNumber(9999);
-                    int id = item.getId();
-                    String itemTitle = item.getTitle();
-                    String description = item.getDescription();
-                    float price = item.getPrice();
-                    String cashierName = user.getFullName();
-                    OrderStatusType orderStatus = OrderStatusType.PENDING;
-                    orderLists.add(new OrderList(orderId, (new InventoryItem(id, itemTitle, description, price, requestedQuantity)), cashierName, orderStatus));
-                    break;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a number for quantity ");
-            } catch (NoSuchElementException e) {
-                System.out.println("Item unavailable");
-            }
-        }
-        orderListFileHandlerFileHandler.writeToFile(orderLists, "assets/orderlist.txt");
+        this.inventory.clear();
+        this.getfullInventory();
         this.orderLists.clear();
         this.orderLists = OrderListPool.getAllOrderLists();
-        Display.returnMainMenu();
+        CreateOrder createOrder = new CreateOrder(user, inventory, orderLists);
+        createOrder.CreateAnOrder();
+        this.orderLists.clear();
+        this.orderLists = OrderListPool.getAllOrderLists();
     }
 
     @Override
@@ -131,19 +107,6 @@ public class Cashier extends Person implements iCashier {
         var isItemAvailable = inventory.stream()
                 .filter(item -> item.getTitle().equalsIgnoreCase(itemName)).findFirst();
         return isItemAvailable.get();
-    }
-
-    public boolean validateItemInPool(String itemName, int requestedQuantity) {
-        var matchItem = orderLists.stream()
-                .filter(item -> item.getItem().getTitle().equalsIgnoreCase(itemName) && (Objects.equals(item.getCashierName(), user.getFullName())))
-                .findFirst();
-        boolean check = matchItem.isPresent();
-        matchItem.ifPresent(item -> {
-            int matchItemIndex = orderLists.indexOf(matchItem.get());
-            int updatedQuantity = orderLists.get(matchItemIndex).getItem().getQuantity() + requestedQuantity;
-            orderLists.get(matchItemIndex).getItem().setQuantity(updatedQuantity);
-        });
-        return check;
     }
 
     public boolean validateQuantity(int requestedQuantity, int itemQuantity) {
