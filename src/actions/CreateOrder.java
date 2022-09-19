@@ -55,6 +55,7 @@ public class CreateOrder {
             float price = item.getPrice();
             String cashierName = user.getFullName();
             OrderStatusType orderStatus = OrderStatusType.PENDING;
+            System.out.println("Order created " + orderId);
             orderLists.add(new OrderList(orderId, (new InventoryItem(id, itemTitle, description, price, requestedQuantity)), cashierName, orderStatus));
             return true;
         }
