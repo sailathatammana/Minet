@@ -1,5 +1,6 @@
 package userRoles;
 
+import actions.ReturnItem;
 import actions.SellItem;
 import data.OrderListPool;
 import utils.*;
@@ -9,7 +10,6 @@ import java.util.*;
 
 public class Cashier extends Person implements iCashier {
     private List<Transaction> transactionList = new ArrayList<Transaction>();
-    FileHandler<Transaction> transactionFileHandler = new FileHandler<>();
     FileHandler<OrderList> orderListFileHandlerFileHandler = new FileHandler<>();
     Scanner scanner = new Scanner(System.in);
     User user;
@@ -26,10 +26,16 @@ public class Cashier extends Person implements iCashier {
 
     @Override
     public void sellItem() {
+        this.inventory.clear();
+        this.getfullInventory();
+        this.transactionList.clear();
+        this.getAllTransactions();
         SellItem sellItem = new SellItem(user, inventory, transactionList);
         sellItem.sellAnItem();
         this.inventory.clear();
         this.getfullInventory();
+        this.transactionList.clear();
+        this.getAllTransactions();
     }
 
     @Override
@@ -66,42 +72,21 @@ public class Cashier extends Person implements iCashier {
         orderListFileHandlerFileHandler.writeToFile(orderLists, "assets/orderlist.txt");
         this.orderLists.clear();
         this.orderLists = OrderListPool.getAllOrderLists();
-        //fileHandler.writeToFile(inventory, "assets/inventory.txt");
         Display.returnMainMenu();
     }
 
     @Override
     public void returnItem() {
-        while (true) {
-            try {
-                Transaction transactionItem;
-                System.out.print("Enter Receipt Number/Enter `q` to go back to main menu\nInput:");
-                String input = scanner.nextLine();
-                if (Display.checkInput(input)) return;
-                int returnReceiptNumber = Integer.parseInt(input);
-                transactionItem = getItemByReceiptNumber(returnReceiptNumber);
-                if (transactionItem != null) {
-                    String returnedItemName = transactionItem.getItemName();
-                    int returnedItemQuantity = transactionItem.getItemQuantity();
-                    var inventoryItem = inventory.stream()
-                            .filter(item -> Objects.equals(item.getTitle(), returnedItemName)).findFirst();
-                    inventoryItem.get().setQuantity(inventoryItem.get().getQuantity() + returnedItemQuantity);
-                    String itemTitle = transactionItem.getItemName();
-                    String cashierName = user.getFullName();
-                    float totalCost = transactionItem.getAmount();
-                    TransactionType type = TransactionType.RETURN;
-                    transactionList.add(new Transaction(itemTitle, returnedItemQuantity, cashierName, returnReceiptNumber, totalCost, type));
-                    break;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a number");
-            }
-        }
-        transactionFileHandler.writeToFile(transactionList, "assets/transactions.txt");
-        fileHandler.writeToFile(inventory, "assets/inventory.txt");
         this.inventory.clear();
         this.getfullInventory();
-        Display.returnMainMenu();
+        this.transactionList.clear();
+        this.getAllTransactions();
+        ReturnItem returnItem = new ReturnItem(user, inventory, transactionList);
+        returnItem.ReturnAnItem();
+        this.inventory.clear();
+        this.getfullInventory();
+        this.transactionList.clear();
+        this.getAllTransactions();
     }
 
     public Transaction getItemByReceiptNumber(int returnReceiptNumber) {
