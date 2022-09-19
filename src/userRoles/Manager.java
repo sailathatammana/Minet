@@ -1,17 +1,17 @@
 package userRoles;
 
+import actions.ReviewOrders;
 import data.OrderListPool;
 import utils.*;
 import viewOrderList.ViewOrderList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Manager extends Person implements iManager {
     User user;
     private final List<OrderList> orderedTransactionList = new ArrayList<>();
-    FileHandler<OrderList> orderListFileHandler = new FileHandler<>();
     FileHandler<OrderList> orderedTransactionListFileHandler = new FileHandler<>();
-    Scanner scanner = new Scanner(System.in);
 
     public Manager(User user) {
         this.user = user;
@@ -22,59 +22,19 @@ public class Manager extends Person implements iManager {
     public void viewOrderList() {
         this.orderLists.clear();
         this.orderLists = OrderListPool.getAllOrderLists();
-        new ViewOrderList(orderLists);
-        OrderList item;
-        while (true) {
-            try {
-                System.out.print("Enter OrderId number/Enter `q` to go back to main menu\nInput:");
-                String input = scanner.nextLine();
-                if (Display.checkInput(input)) return;
-                int requestedOrderId = Integer.parseInt(input);
-                item = getItemById(requestedOrderId);
-                System.out.print("Enter yes to approve and No to reject/Enter `q` to go back to main menu\nInput:");
-                String confirmOrder = scanner.nextLine();
-                if (Display.checkInput(confirmOrder)) return;
-                if ((Objects.equals(confirmOrder.toLowerCase(), "yes")) || (Objects.equals(confirmOrder.toLowerCase(), "no"))) {
-                    String itemName = item.getItem().getTitle();
-                    int itemQuantity = item.getItem().getQuantity();
-                    int id = item.getItem().getId();
-                    String description = item.getItem().getDescription();
-                    float price = item.getItem().getPrice();
-                    if ((Objects.equals(confirmOrder.toLowerCase(), "yes"))) {
-                        item.setOrderStatus(OrderStatusType.APPROVED);
-                        var newItem = inventory.stream().filter(x -> x.getTitle().equals(itemName)).findFirst();
-                        newItem.ifPresent(value -> newItem.get().setQuantity(newItem.get().getQuantity() + itemQuantity));
-                        System.out.println("Order " + item.getOrderId() + " is approved and updating the inventory");
-                    } else {
-                        item.setOrderStatus(OrderStatusType.REJECTED);
-                        System.out.println("Order " + item.getOrderId() + " is rejected");
-                    }
-                    orderLists.remove(item);
-                    orderedTransactionList.add(new OrderList(item.getOrderId(), (new InventoryItem(id, itemName, description, price, itemQuantity)), item.getCashierName(), item.getOrderStatus()));
-                    break;
-                } else {
-                    System.out.println("You entered wrong input");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a number for orderId ");
-            } catch (NoSuchElementException e) {
-                System.out.println("Invalid Order id");
-            }
-        }
-        orderListFileHandler.writeToFile(orderLists, "assets/orderlist.txt");
-        this.orderLists.clear();
-        this.orderLists = OrderListPool.getAllOrderLists();
-        fileHandler.writeToFile(inventory, "assets/inventory.txt");
         this.inventory.clear();
         this.getfullInventory();
-        orderedTransactionListFileHandler.writeToFile(orderedTransactionList, "assets/OrderedTransactionList.txt");
-        Display.returnMainMenu();
-    }
-
-    public OrderList getItemById(int requestedOrderId) {
-        var isItemAvailable = orderLists.stream()
-                .filter(item -> item.getOrderId() == requestedOrderId).findFirst();
-        return isItemAvailable.get();
+        this.orderedTransactionList.clear();
+        this.getAllOrderedTransactionList();
+        new ViewOrderList(orderLists);
+        ReviewOrders reviewOrders = new ReviewOrders(inventory, orderLists, orderedTransactionList);
+        reviewOrders.reviewOrderList();
+        this.orderLists.clear();
+        this.orderLists = OrderListPool.getAllOrderLists();
+        this.inventory.clear();
+        this.getfullInventory();
+        this.orderedTransactionList.clear();
+        this.getAllOrderedTransactionList();
     }
 
     public void getAllOrderedTransactionList() {
