@@ -1,5 +1,6 @@
 package userRoles;
 
+import actions.SellItem;
 import data.OrderListPool;
 import utils.*;
 import viewOrderList.ViewOrderList;
@@ -25,42 +26,10 @@ public class Cashier extends Person implements iCashier {
 
     @Override
     public void sellItem() {
-        while (true) {
-            InventoryItem item;
-            try {
-                System.out.print("Enter Item name/Enter `q` to go back to main menu\nInput:");
-                String itemName = scanner.nextLine();
-                if (Display.checkInput(itemName)) return;
-                System.out.print("Enter Quantity/Enter `q` to go back to main menu\nInput: ");
-                String input = scanner.nextLine();
-                if (Display.checkInput(input)) {
-                    Display.clearScreen();
-                    return;
-                }
-                int requestedQuantity = Integer.parseInt(input);
-                item = getItemByName(itemName);
-                if (validateQuantity(requestedQuantity, item.getQuantity())) {
-                    int updatedQuantity = item.getQuantity() - requestedQuantity;
-                    item.setQuantity(updatedQuantity);
-                    String itemTitle = item.getTitle();
-                    String cashierName = user.getFullName();
-                    int receiptNumber = RandomGenerator.generateRandomNumber(9999999);
-                    float totalCost = requestedQuantity * item.getPrice();
-                    TransactionType type = TransactionType.SELL;
-                    transactionList.add(new Transaction(itemTitle, requestedQuantity, cashierName, receiptNumber, totalCost, type));
-                    break;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a number for quantity ");
-            } catch (NoSuchElementException e) {
-                System.out.println("Item unavailable");
-            }
-        }
-        transactionFileHandler.writeToFile(transactionList, "assets/transactions.txt");
-        fileHandler.writeToFile(inventory, "assets/inventory.txt");
+        SellItem sellItem = new SellItem(user, inventory, transactionList);
+        sellItem.sellAnItem();
         this.inventory.clear();
         this.getfullInventory();
-        Display.returnMainMenu();
     }
 
     @Override

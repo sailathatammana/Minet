@@ -44,4 +44,8 @@ public class Display {
         return Objects.equals(input.toLowerCase(), "q");
     }
 
+    public static String printHeader(String value) {
+        System.out.print("Enter " + value + "/Enter `q` to go back to main menu\nInput:");
+        return scanner.nextLine();
+    }
 }
