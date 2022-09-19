@@ -16,6 +16,7 @@ public class Manager extends Person implements iManager {
     private List<OrderList> orderedTransactionList;
 
     public Manager(User user) {
+        super();
         this.user = user;
         this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
     }

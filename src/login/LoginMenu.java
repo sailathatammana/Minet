@@ -1,5 +1,6 @@
 package login;
 
+import admin.AdminMenu;
 import cashier.CashierMenu;
 import homeMenu.HomeMenu;
 import manager.ManagerMenu;
@@ -64,7 +65,10 @@ public class LoginMenu {
                 ManagerMenu managerMenu = new ManagerMenu();
                 managerMenu.start(currentUser);
             }
-            case "admin" -> System.out.println("Admin");
+            case "admin" -> {
+                AdminMenu adminMenu = new AdminMenu();
+                adminMenu.start(currentUser);
+            }
         }
 
     }
