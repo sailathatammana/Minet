@@ -45,9 +45,9 @@ public class CreateOrder {
         return isItemAvailable.get();
     }
 
-    private boolean addItemToOrder(InventoryItem item, String itemName, int requestedQuantity) {
+    public boolean addItemToOrder(InventoryItem item, String itemName, int requestedQuantity) {
         if (validatePositiveQuantity(requestedQuantity)) {
-            if (validateItemInPool(itemName, requestedQuantity)) return true;
+            if (updateOrderInPool(itemName, requestedQuantity)) return true;
             int orderId = RandomGenerator.generateRandomNumber(9999);
             int id = item.getId();
             String itemTitle = item.getTitle();
@@ -71,7 +71,7 @@ public class CreateOrder {
         return false;
     }
 
-    public boolean validateItemInPool(String itemName, int requestedQuantity) {
+    public boolean updateOrderInPool(String itemName, int requestedQuantity) {
         var matchItem = orderLists.stream()
                 .filter(item -> {
                     boolean cashierName = Objects.equals(item.getCashierName(), user.getFullName());

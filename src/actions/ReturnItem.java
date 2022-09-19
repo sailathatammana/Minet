@@ -54,7 +54,7 @@ public class ReturnItem {
         return null;
     }
 
-    private boolean addReturnItem(Transaction transactionItem, int returnReceiptNumber) {
+    public boolean addReturnItem(Transaction transactionItem, int returnReceiptNumber) {
         if (transactionItem != null) {
             String returnedItemName = transactionItem.getItemName();
             int returnedItemQuantity = transactionItem.getItemQuantity();

@@ -50,7 +50,7 @@ public class ReviewOrders {
         return isItemAvailable.get();
     }
 
-    private boolean addTransaction(OrderList item, String confirmOrder) {
+    public boolean addTransaction(OrderList item, String confirmOrder) {
         if ((Objects.equals(confirmOrder.toLowerCase(), "yes")) || (Objects.equals(confirmOrder.toLowerCase(), "no"))) {
             String itemName = item.getItem().getTitle();
             int itemQuantity = item.getItem().getQuantity();

@@ -46,7 +46,7 @@ public class SellItem {
         return isItemAvailable.get();
     }
 
-    private boolean addItemToTransaction(InventoryItem item, int requestedQuantity) {
+    public boolean addItemToTransaction(InventoryItem item, int requestedQuantity) {
         if (validateQuantity(requestedQuantity, item.getQuantity())) {
             int updatedQuantity = item.getQuantity() - requestedQuantity;
             item.setQuantity(updatedQuantity);
