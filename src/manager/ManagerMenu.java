@@ -14,6 +14,7 @@ public class ManagerMenu {
                 switch (cashierAction) {
                     case "View Inventory" -> manager.viewInventory();
                     case "Review orderList" -> manager.viewOrderList();
+                    case "View OrderedTransaction List" -> manager.viewOrderedTransactionList();
                 }
             }
         }

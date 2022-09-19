@@ -4,21 +4,24 @@ import actions.CreateOrder;
 import actions.ReturnItem;
 import actions.SellItem;
 import data.OrderListPool;
-import utils.*;
+import data.TransactionPool;
+import utils.Display;
+import utils.InventoryItem;
+import utils.Transaction;
+import utils.User;
 import viewOrderList.ViewOrderList;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Cashier extends Person implements iCashier {
-    private List<Transaction> transactionList = new ArrayList<Transaction>();
+    private List<Transaction> transactionList;
     User user;
 
     public Cashier(User user) {
         super();
         this.user = user;
-        getAllTransactions();
+        this.transactionList = TransactionPool.getAllTransactions();
     }
 
     public List<Transaction> getTransactionList() {
@@ -30,13 +33,13 @@ public class Cashier extends Person implements iCashier {
         this.inventory.clear();
         this.getfullInventory();
         this.transactionList.clear();
-        this.getAllTransactions();
+        this.transactionList = TransactionPool.getAllTransactions();
         SellItem sellItem = new SellItem(user, inventory, transactionList);
         sellItem.sellAnItem();
         this.inventory.clear();
         this.getfullInventory();
         this.transactionList.clear();
-        this.getAllTransactions();
+        this.transactionList = TransactionPool.getAllTransactions();
     }
 
     @Override
@@ -56,13 +59,13 @@ public class Cashier extends Person implements iCashier {
         this.inventory.clear();
         this.getfullInventory();
         this.transactionList.clear();
-        this.getAllTransactions();
+        this.transactionList = TransactionPool.getAllTransactions();
         ReturnItem returnItem = new ReturnItem(user, inventory, transactionList);
         returnItem.ReturnAnItem();
         this.inventory.clear();
         this.getfullInventory();
         this.transactionList.clear();
-        this.getAllTransactions();
+        this.transactionList = TransactionPool.getAllTransactions();
     }
 
     public Transaction getItemByReceiptNumber(int returnReceiptNumber) {
@@ -88,19 +91,6 @@ public class Cashier extends Person implements iCashier {
         this.orderLists = OrderListPool.getAllOrderLists();
         new ViewOrderList(orderLists);
         Display.returnMainMenu();
-    }
-
-    public void getAllTransactions() {
-        List<List<String>> result = fileHandler.readFromFile("assets/transactions.txt");
-        for (List<String> strings : result) {
-            String inventoryItem = strings.get(0);
-            int itemQuantity = Integer.parseInt(strings.get(1));
-            String cashierName = strings.get(2);
-            int receiptNumber = Integer.parseInt(strings.get(3));
-            float amount = Float.parseFloat(strings.get(4));
-            TransactionType type = TransactionType.valueOf(strings.get(5));
-            transactionList.add(new Transaction(inventoryItem, itemQuantity, cashierName, receiptNumber, amount, type));
-        }
     }
 
     public InventoryItem getItemByName(String itemName) {
