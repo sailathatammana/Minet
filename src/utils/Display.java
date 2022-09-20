@@ -41,7 +41,11 @@ public class Display {
     }
 
     public static boolean checkInput(String input) {
-        return Objects.equals(input.toLowerCase(), "q");
+        if (Objects.equals(input.toLowerCase(), "q")) {
+            Display.clearScreen();
+            return true;
+        }
+        return false;
     }
 
     public static String printHeader(String value) {
