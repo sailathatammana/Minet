@@ -86,7 +86,6 @@ public class Admin extends Person implements iAdmin {
     public void viewOrderedTransactionList() {
         this.orderedTransactionList.clear();
         this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
-        System.out.println("Ordered Transactions List");
         ViewOrderedTransactionList list = new ViewOrderedTransactionList();
         list.showTable(orderedTransactionList);
         Display.returnMainMenu();

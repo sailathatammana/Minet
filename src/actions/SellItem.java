@@ -19,6 +19,7 @@ public class SellItem {
     }
 
     public void sellAnItem() {
+        Display.clearScreen();
         while (true) {
             InventoryItem item;
             try {

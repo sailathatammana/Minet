@@ -50,6 +50,8 @@ public class Person {
     }
 
     public void displayInventory() {
+        Display.clearScreen();
+        System.out.println("Inventory List");
         String tableHeader = "| Id    | Product         | Price   | Qty  | Status        |%n";
         String tableBorder = "+-------+-----------------+---------+------+---------------+%n";
         String tableFormat = "| %-5d | %-15s | %-7.2f | %-4d | %-13s |%n";

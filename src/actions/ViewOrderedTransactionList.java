@@ -1,5 +1,6 @@
 package actions;
 
+import utils.Display;
 import utils.OrderList;
 import utils.Table;
 
@@ -8,6 +9,8 @@ import java.util.List;
 
 public class ViewOrderedTransactionList {
     public void showTable(List<OrderList> orderedTransactionList) {
+        Display.clearScreen();
+        System.out.println("Ordered Transactions List");
         List<Integer> columnWidths = List.of(10, 15, 4, 15, 10);
         List<String> headers = List.of("Order ID", "Product", "Qty", "CashierName", "Status");
         List<List<String>> body = parseOrder(orderedTransactionList);

@@ -19,6 +19,7 @@ public class CreateOrder {
     }
 
     public void CreateAnOrder() {
+        Display.clearScreen();
         while (true) {
             InventoryItem item;
             try {

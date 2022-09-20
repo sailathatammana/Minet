@@ -20,6 +20,7 @@ public class ReturnItem {
     }
 
     public void ReturnAnItem() {
+        Display.clearScreen();
         while (true) {
             try {
                 Transaction transactionItem;

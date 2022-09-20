@@ -1,5 +1,6 @@
 package viewOrderList;
 
+import utils.Display;
 import utils.OrderList;
 import utils.Table;
 
@@ -8,7 +9,8 @@ import java.util.List;
 
 public class ViewOrderListView {
     public void showData(List<OrderList> orderLists) {
-        System.out.println("OrderList Table");
+        Display.clearScreen();
+        System.out.println("Orders List");
         showTable(orderLists);
     }
 
