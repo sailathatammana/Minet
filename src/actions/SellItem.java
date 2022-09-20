@@ -53,7 +53,7 @@ public class SellItem {
             String itemTitle = item.getTitle();
             String cashierName = user.getFullName();
             int receiptNumber = RandomGenerator.generateRandomNumber(9999999);
-            float totalCost = requestedQuantity * item.getPrice();
+            float totalCost = requestedQuantity * item.getSellingPrice();
             TransactionType type = TransactionType.SELL;
             System.out.println("Your receipt number is: " + receiptNumber);
             transactionList.add(new Transaction(itemTitle, requestedQuantity, cashierName, receiptNumber, totalCost, type));

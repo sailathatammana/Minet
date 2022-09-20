@@ -52,11 +52,12 @@ public class CreateOrder {
             int id = item.getId();
             String itemTitle = item.getTitle();
             String description = item.getDescription();
-            float price = item.getPrice();
+            float sellingPrice = item.getSellingPrice();
+            float costPrice = item.getCostPrice();
             String cashierName = user.getFullName();
             OrderStatusType orderStatus = OrderStatusType.PENDING;
             System.out.println("Order created " + orderId);
-            orderLists.add(new OrderList(orderId, (new InventoryItem(id, itemTitle, description, price, requestedQuantity)), cashierName, orderStatus));
+            orderLists.add(new OrderList(orderId, (new InventoryItem(id, itemTitle, description, sellingPrice, costPrice, requestedQuantity)), cashierName, orderStatus));
             return true;
         }
         return false;

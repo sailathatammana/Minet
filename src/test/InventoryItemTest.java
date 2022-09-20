@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InventoryItemTest {
 
-    InventoryItem item = new InventoryItem(5, "pencil", "to write", 5, 1);
+    InventoryItem item = new InventoryItem(5, "pencil", "to write", 5, 8,1);
 
     @Test
     @DisplayName("Check if item out of stock")

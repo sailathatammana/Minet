@@ -6,17 +6,19 @@ public class InventoryItem implements Serializable {
     private final int id;
     private String title;
     private String description;
-    private float price;
+    private float sellingPrice;
     private int quantity;
     private String stockStatus;
+    private float costPrice;
 
-    public InventoryItem(int id, String title, String description, float price, int quantity) {
+    public InventoryItem(int id, String title, String description, float sellingPrice, float costPrice, int quantity) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.price = price;
+        this.sellingPrice = sellingPrice;
         this.quantity = quantity;
         this.setStockStatus();
+        this.setCostPrice();
     }
 
     public int getId() {
@@ -39,12 +41,12 @@ public class InventoryItem implements Serializable {
         this.description = description;
     }
 
-    public float getPrice() {
-        return price;
+    public float getSellingPrice() {
+        return sellingPrice;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setSellingPrice(float price) {
+        this.sellingPrice = price;
     }
 
     public int getQuantity() {
@@ -68,8 +70,16 @@ public class InventoryItem implements Serializable {
         }
     }
 
+    public float getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice() {
+        this.costPrice = (float) (this.sellingPrice * 0.9);
+    }
+
     @Override
     public String toString() {
-        return id + "," + title + "," + description + "," + price + "," + quantity;
+        return id + "," + title + "," + description + "," + sellingPrice + "," + costPrice + "," + quantity;
     }
 }

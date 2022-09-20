@@ -56,10 +56,11 @@ public class ReviewOrders {
             int itemQuantity = item.getItem().getQuantity();
             int id = item.getItem().getId();
             String description = item.getItem().getDescription();
-            float price = item.getItem().getPrice();
+            float sellingPrice = item.getItem().getSellingPrice();
+            float costPrice = item.getItem().getCostPrice();
             setStatus(item, confirmOrder, itemName, itemQuantity);
             orderLists.remove(item);
-            orderedTransactionList.add(new OrderList(item.getOrderId(), (new InventoryItem(id, itemName, description, price, itemQuantity)), item.getCashierName(), item.getOrderStatus()));
+            orderedTransactionList.add(new OrderList(item.getOrderId(), (new InventoryItem(id, itemName, description, sellingPrice, costPrice, itemQuantity)), item.getCashierName(), item.getOrderStatus()));
             return true;
         } else {
             System.out.println("You entered wrong input");

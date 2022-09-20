@@ -27,7 +27,7 @@ class ReturnItemTest {
     public void init() {
         user = new User("Ravi", "ravi",
                 "108317418603245272581161763738331279269013253057951070798501290887753974195791", "Cashier");
-        item = new InventoryItem(10, "Pencil", "To write", 10, 5);
+        item = new InventoryItem(10, "Pencil", "To write", 10, 8,5);
         inventoryItemList = List.of(item);
          transaction1 = new Transaction("Pencil", 2, "Ravi", 8970267,
                 20, TransactionType.SELL);

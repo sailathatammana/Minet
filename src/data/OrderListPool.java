@@ -20,11 +20,12 @@ public class OrderListPool {
             int id = Integer.parseInt(item.get(1));
             String title = item.get(2);
             String description = item.get(3);
-            float price = Float.parseFloat(item.get(4));
-            int quantity = Integer.parseInt(item.get(5));
-            String cashierName = item.get(6);
-            OrderStatusType orderStatus = OrderStatusType.valueOf(item.get(7));
-            orderLists.add(new OrderList(orderId, (new InventoryItem(id, title, description, price, quantity)), cashierName, orderStatus));
+            float sellingPrice = Float.parseFloat(item.get(4));
+            float costPrice = Float.parseFloat(item.get(5));
+            int quantity = Integer.parseInt(item.get(6));
+            String cashierName = item.get(7);
+            OrderStatusType orderStatus = OrderStatusType.valueOf(item.get(8));
+            orderLists.add(new OrderList(orderId, (new InventoryItem(id, title, description, sellingPrice, costPrice, quantity)), cashierName, orderStatus));
         });
         return orderLists;
     }

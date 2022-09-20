@@ -25,7 +25,7 @@ class ReviewOrdersTest {
 
     @BeforeAll
     public void init() {
-        item = new InventoryItem(10, "Pencil", "To write", 10, 5);
+        item = new InventoryItem(10, "Pencil", "To write", 10, 8,5);
         inventoryItemList = List.of(item);
         orderList1 = new OrderList(1234, item, "Ravi", OrderStatusType.PENDING);
         orderLists = List.of(orderList1);

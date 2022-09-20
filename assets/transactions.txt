@@ -7,3 +7,5 @@ Flashlight,3,Sai,6172182,300.0,RETURN
 Flashlight,2,Ravi,7329304,200.0,RETURN
 Pen,40,RaviLatha,9391979,400.0,SELL
 Pen,40,RaviLatha,9391979,400.0,RETURN
+Pen,20,RaviLatha,4515598,200.0,SELL
+Tin can,1,RaviLatha,316,45.0,RETURN

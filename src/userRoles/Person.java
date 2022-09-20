@@ -42,9 +42,10 @@ public class Person {
             int id = Integer.parseInt(item.get(0));
             String title = item.get(1);
             String description = item.get(2);
-            float price = Float.parseFloat(item.get(3));
-            int quantity = Integer.parseInt(item.get(4));
-            inventory.add(new InventoryItem(id, title, description, price, quantity));
+            float sellingPrice = Float.parseFloat(item.get(3));
+            float costPrice = Float.parseFloat(item.get(4));
+            int quantity = Integer.parseInt(item.get(5));
+            inventory.add(new InventoryItem(id, title, description, sellingPrice, costPrice, quantity));
         });
     }
 
@@ -58,7 +59,7 @@ public class Person {
         inventory.forEach(item -> {
             int id = item.getId();
             String title = item.getTitle();
-            float price = item.getPrice();
+            float price = item.getSellingPrice();
             int quantity = item.getQuantity();
             String stockStatus = item.getStockStatus();
             System.out.format(tableFormat, id, title, price, quantity, stockStatus);
