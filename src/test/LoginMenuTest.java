@@ -1,6 +1,6 @@
 package test;
 
-import login.LoginMenu;
+import com.minet.login.LoginMenu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

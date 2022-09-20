@@ -1,14 +1,14 @@
 package test;
 
-import actions.ReturnItem;
+import com.minet.actions.ReturnItem;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import utils.InventoryItem;
-import utils.Transaction;
-import utils.TransactionType;
-import utils.User;
+import com.minet.utils.InventoryItem;
+import com.minet.utils.Transaction;
+import com.minet.utils.TransactionType;
+import com.minet.utils.User;
 
 import java.util.List;
 

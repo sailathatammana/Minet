@@ -1,13 +1,13 @@
 package test;
 
-import actions.ReviewOrders;
+import com.minet.actions.ReviewOrders;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import utils.InventoryItem;
-import utils.OrderList;
-import utils.OrderStatusType;
+import com.minet.utils.InventoryItem;
+import com.minet.utils.OrderList;
+import com.minet.utils.OrderStatusType;
 
 import java.util.List;
 import java.util.NoSuchElementException;

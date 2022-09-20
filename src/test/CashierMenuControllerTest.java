@@ -1,6 +1,6 @@
 package test;
 
-import cashier.CashierMenuController;
+import com.minet.cashier.CashierMenuController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

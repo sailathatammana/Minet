@@ -2,7 +2,7 @@ package test;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import utils.InventoryItem;
+import com.minet.utils.InventoryItem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

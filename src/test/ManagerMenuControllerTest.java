@@ -1,6 +1,6 @@
 package test;
 
-import manager.ManagerMenuController;
+import com.minet.manager.ManagerMenuController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

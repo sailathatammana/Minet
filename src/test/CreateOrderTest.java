@@ -1,14 +1,14 @@
 package test;
 
-import actions.CreateOrder;
+import com.minet.actions.CreateOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import utils.InventoryItem;
-import utils.OrderList;
-import utils.OrderStatusType;
-import utils.User;
+import com.minet.utils.InventoryItem;
+import com.minet.utils.OrderList;
+import com.minet.utils.OrderStatusType;
+import com.minet.utils.User;
 
 import java.util.List;
 
