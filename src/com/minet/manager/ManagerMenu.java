@@ -10,7 +10,7 @@ public class ManagerMenu {
         Manager manager = new Manager(user);
         while (true) {
             String cashierAction = controller.run();
-            if (controller.model.menuOptions.contains(cashierAction)) {
+            if (controller.model.getMenuOptions().contains(cashierAction)) {
                 switch (cashierAction) {
                     case "View Inventory" -> manager.viewInventory();
                     case "Review orderList" -> manager.viewOrderList();

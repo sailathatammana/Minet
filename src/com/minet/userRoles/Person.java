@@ -20,10 +20,6 @@ public class Person {
         this.orderLists = OrderListPool.getAllOrderLists();
     }
 
-    public List<InventoryItem> getInventoryList() {
-        return inventory;
-    }
-
     public List<OrderList> getOrderLists() {
         return orderLists;
     }

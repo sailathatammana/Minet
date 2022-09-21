@@ -10,7 +10,7 @@ import java.util.List;
 
 public class OrderListPool {
     static FileHandler<OrderList> fileHandler = new FileHandler<>();
-    private static List<OrderList> orderLists = new ArrayList<OrderList>();
+    private static final List<OrderList> orderLists = new ArrayList<OrderList>();
 
 
     public static List<OrderList> getAllOrderLists() {

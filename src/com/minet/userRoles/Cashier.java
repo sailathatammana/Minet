@@ -22,10 +22,6 @@ public class Cashier extends Person implements iCashier {
         this.transactionList = TransactionPool.getAllTransactions();
     }
 
-    public List<Transaction> getTransactionList() {
-        return transactionList;
-    }
-
     @Override
     public void sellItem() {
         this.inventory.clear();

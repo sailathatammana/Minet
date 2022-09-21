@@ -10,7 +10,7 @@ public class AdminMenu {
         Admin admin = new Admin(user);
         while (true) {
             String cashierAction = controller.run();
-            if (controller.model.menuOptions.contains(cashierAction)) {
+            if (controller.model.getMenuOptions().contains(cashierAction)) {
                 switch (cashierAction) {
                     case "Sell an Item" -> admin.sellItem();
                     case "Return an Item" -> admin.returnItem();

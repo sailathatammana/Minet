@@ -13,7 +13,7 @@ public class CashierMenuController extends BaseController<String> {
         String input = view.chooseOption();
         try {
             int selectedOption = Integer.parseInt(input);
-            if (handleOption(selectedOption) == 1) return model.menuOptions.get(selectedOption - 1);
+            if (handleOption(selectedOption) == 1) return model.getMenuOptions().get(selectedOption - 1);
         } catch (NumberFormatException exception) {
             view.printStringInvalidOption();
         } catch (IndexOutOfBoundsException exception) {

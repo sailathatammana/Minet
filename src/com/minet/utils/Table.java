@@ -9,7 +9,6 @@ public class Table {
     private final String format;
     private final String border;
 
-    // Constructor
     public Table(List<Integer> columnWidth, List<String> header, List<List<String>> body) {
         this.columnWidth = columnWidth;
         this.header = header;
@@ -18,7 +17,6 @@ public class Table {
         this.border = createBorder();
     }
 
-    // Public
     public void showData() {
         generateBorder();
         generateHeader();
@@ -27,7 +25,6 @@ public class Table {
         generateBorder();
     }
 
-    // Private
     private String createFormat() {
         StringBuilder result = new StringBuilder();
         String prefix = "| %-";

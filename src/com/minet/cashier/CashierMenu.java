@@ -16,7 +16,7 @@ public class CashierMenu implements Runnable {
         Cashier cashier = new Cashier(user);
         while (true) {
             String cashierAction = controller.run();
-            if (controller.model.menuOptions.contains(cashierAction)) {
+            if (controller.model.getMenuOptions().contains(cashierAction)) {
                 switch (cashierAction) {
                     case "Sell an Item" -> cashier.sellItem();
                     case "Return an Item" -> cashier.returnItem();

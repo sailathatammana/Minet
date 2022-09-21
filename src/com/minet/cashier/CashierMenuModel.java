@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CashierMenuModel extends BaseModel {
 
-    public final List<String> menuOptions = List.of("Sell an Item", "Return an Item", "Create order",
+    private final List<String> menuOptions = List.of("Sell an Item", "Return an Item", "Create order",
             "View Inventory", "View orderList", "Exit");
 
     @Override
