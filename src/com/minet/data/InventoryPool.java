@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryPool {
-    private final static List<InventoryItem> inventory = new ArrayList<InventoryItem>();
+    private final static List<InventoryItem> inventory = new ArrayList<>();
     static FileHandler<InventoryItem> fileHandler = new FileHandler<>();
 
     public static List<InventoryItem> getfullInventory() {

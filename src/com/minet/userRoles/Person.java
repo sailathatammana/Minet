@@ -17,16 +17,16 @@ public class Person {
         this.inventory = InventoryPool.getfullInventory();
         this.orderLists = OrderListPool.getAllOrderLists();
     }
-
-    public List<OrderList> getOrderLists() {
-        return orderLists;
-    }
-
+    
     public void viewInventory() {
-        this.inventory.clear();
-        this.inventory = InventoryPool.getfullInventory();
+        resyncInventory();
         displayInventory();
         Display.returnMainMenu();
+    }
+
+    protected void resyncInventory() {
+        this.inventory.clear();
+        this.inventory = InventoryPool.getfullInventory();
     }
 
     public void displayInventory() {

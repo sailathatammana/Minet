@@ -2,7 +2,6 @@ package com.minet.userRoles;
 
 import com.minet.actions.ReviewOrders;
 import com.minet.actions.ViewOrderedTransactionList;
-import com.minet.data.InventoryPool;
 import com.minet.data.OrderListPool;
 import com.minet.data.OrderedTransactionListPool;
 import com.minet.utils.Display;
@@ -24,24 +23,31 @@ public class Manager extends Person implements iManager {
 
     @Override
     public void viewOrderList() {
-        this.orderLists.clear();
-        this.orderLists = OrderListPool.getAllOrderLists();
-        this.inventory.clear();
-        this.inventory = InventoryPool.getfullInventory();
-        this.orderedTransactionList.clear();
-        this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
+        this.resyncInventory();
+        resyncOrderList();
+        resyncOrderedTransactionList();
         new ViewOrderList(orderLists);
         ReviewOrders reviewOrders = new ReviewOrders(inventory, orderLists, orderedTransactionList);
         reviewOrders.reviewOrderList();
     }
 
+
     @Override
     public void viewOrderedTransactionList() {
-        this.orderedTransactionList.clear();
-        this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
+        resyncOrderedTransactionList();
         System.out.println("Ordered Transactions List");
         ViewOrderedTransactionList list = new ViewOrderedTransactionList();
         list.showTable(orderedTransactionList);
         Display.returnMainMenu();
+    }
+
+    private void resyncOrderList() {
+        this.orderLists.clear();
+        this.orderLists = OrderListPool.getAllOrderLists();
+    }
+
+    private void resyncOrderedTransactionList() {
+        this.orderedTransactionList.clear();
+        this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
     }
 }
