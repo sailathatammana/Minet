@@ -10,4 +10,5 @@ public interface iAdmin {
     void viewOrderList();
 
     void viewOrderedTransactionList();
+    void getStatistics();
 }

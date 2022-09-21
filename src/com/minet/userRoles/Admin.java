@@ -89,5 +89,22 @@ public class Admin extends Person implements iAdmin {
         ViewOrderedTransactionList list = new ViewOrderedTransactionList();
         list.showTable(orderedTransactionList);
         Display.returnMainMenu();
+        this.orderedTransactionList.clear();
+        this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
+    }
+
+
+    @Override
+    public void getStatistics() {
+        this.inventory.clear();
+        this.getfullInventory();
+        this.transactionList.clear();
+        this.transactionList = TransactionPool.getAllTransactions();
+        Statistics statistics = new Statistics(inventory, transactionList);
+        statistics.generateStatistics();
+        this.inventory.clear();
+        this.getfullInventory();
+        this.transactionList.clear();
+        this.transactionList = TransactionPool.getAllTransactions();
     }
 }

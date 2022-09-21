@@ -24,10 +24,10 @@ public class AdminMenuController extends BaseController<String> {
 
     public int handleOption(int selectedOption) {
         switch (selectedOption) {
-            case 1, 2, 3, 4, 5, 6-> {
+            case 1, 2, 3, 4, 5, 6,7-> {
                 return 1;
             }
-            case 7 -> Display.exit();
+            case 8 -> Display.exit();
             default -> throw new IndexOutOfBoundsException();
         }
         return -9;

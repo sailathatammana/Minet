@@ -18,7 +18,7 @@ public class InventoryItem implements Serializable {
         this.sellingPrice = sellingPrice;
         this.quantity = quantity;
         this.setStockStatus();
-        this.setCostPrice();
+        this.costPrice = costPrice;
     }
 
     public int getId() {

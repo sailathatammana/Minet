@@ -18,6 +18,7 @@ public class AdminMenu {
                     case "View Inventory" -> admin.viewInventory();
                     case "Review orderList" -> admin.viewOrderList();
                     case "View OrderedTransaction List" -> admin.viewOrderedTransactionList();
+                    case "Generate Statistics" -> admin.getStatistics();
                 }
             }
         }
