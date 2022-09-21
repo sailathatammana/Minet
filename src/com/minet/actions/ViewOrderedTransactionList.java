@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOrderedTransactionList {
+    public ViewOrderedTransactionList(List<OrderList> orderedTransactionList) {
+        showTable(orderedTransactionList);
+
+    }
+
     public void showTable(List<OrderList> orderedTransactionList) {
         Display.clearScreen();
         System.out.println("Ordered Transactions List");

@@ -1,27 +1,15 @@
 package com.minet.mvc;
 
+import com.minet.utils.Display;
+
 import java.util.List;
 import java.util.Scanner;
 
 public abstract class BaseView {
     protected final Scanner scanner = new Scanner(System.in);
 
-    private void welcomeMsg() {
-        System.out.println("Welcome to Warehouse.\n");
-    }
-
     public void clearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                welcomeMsg();
-            } else {
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-                welcomeMsg();
-            }
-        } catch (Exception E) {
-            System.out.println(E);
-        }
+        Display.clearScreen();
     }
 
     public String chooseOption() {

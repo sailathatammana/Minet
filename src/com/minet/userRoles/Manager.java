@@ -36,8 +36,7 @@ public class Manager extends Person implements iManager {
     public void viewOrderedTransactionList() {
         resyncOrderedTransactionList();
         System.out.println("Ordered Transactions List");
-        ViewOrderedTransactionList list = new ViewOrderedTransactionList();
-        list.showTable(orderedTransactionList);
+        new ViewOrderedTransactionList(orderedTransactionList);
         Display.returnMainMenu();
     }
 

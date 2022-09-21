@@ -61,8 +61,7 @@ public class Admin extends Person implements iAdmin {
     @Override
     public void viewOrderedTransactionList() {
         resyncOrderedTransactionList();
-        ViewOrderedTransactionList list = new ViewOrderedTransactionList();
-        list.showTable(orderedTransactionList);
+        new ViewOrderedTransactionList(orderedTransactionList);
         Display.returnMainMenu();
     }
 
