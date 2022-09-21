@@ -18,12 +18,12 @@ public class ViewOrderedTransactionList {
         System.out.println("Ordered Transactions List");
         List<Integer> columnWidths = List.of(10, 15, 4, 15, 10);
         List<String> headers = List.of("Order ID", "Product", "Qty", "CashierName", "Status");
-        List<List<String>> body = parseOrder(orderedTransactionList);
+        List<List<String>> body = parseData(orderedTransactionList);
         Table table = new Table(columnWidths, headers, body);
         table.showData();
     }
 
-    private List<List<String>> parseOrder(List<OrderList> orderedTransactionList) {
+    private List<List<String>> parseData(List<OrderList> orderedTransactionList) {
         List<List<String>> result = new ArrayList<>();
         orderedTransactionList.forEach(item -> {
             String index = String.valueOf(item.getOrderId());

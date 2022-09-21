@@ -1,9 +1,6 @@
 package com.minet.actions;
 
-import com.minet.utils.Display;
-import com.minet.utils.InventoryItem;
-import com.minet.utils.Transaction;
-import com.minet.utils.TransactionType;
+import com.minet.utils.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +33,7 @@ public class Statistics {
             inwardCashFlow.add(itemQuantity * inventoryItem.getSellingPrice());
         }
         System.out.println("Statistics: ");
-        displayProfits(totalQuantity, profit);
+        displayStatistics(totalQuantity, profit);
         getBestSellingProduct(totalQuantity);
         generateCashFlow(outwardCashFlow, inwardCashFlow);
         Display.returnMainMenu();
@@ -53,23 +50,27 @@ public class Statistics {
         return itemQuantity;
     }
 
-    public void displayProfits(List<Integer> totalQuantity, List<Float> profitList) {
-        String tableHeader = "| Id    | Product         | Sold  | Cost Price  | Selling Price  | Profit  |%n";
-        String tableBorder = "+-------+-----------------+-------+-------------+----------------+---------+%n";
-        String tableFormat = "| %-5d | %-15s | %-5d | %-11.2f | %-14.2f | %-7.2f |%n";
-        System.out.format(tableBorder);
-        System.out.format(tableHeader);
-        System.out.format(tableBorder);
+    public void displayStatistics(List<Integer> totalQuantity, List<Float> profitList) {
+        List<Integer> columnWidths = List.of(5, 15, 5, 13, 16, 9);
+        List<String> headers = List.of("ID", "Product", "Sold", "Cost Price", "Selling Price", "Profit");
+        List<List<String>> body = parseData(inventory, totalQuantity, profitList);
+        Table table = new Table(columnWidths, headers, body);
+        table.showData();
+    }
+
+    private List<List<String>> parseData(List<InventoryItem> inventory, List<Integer> totalQuantity, List<Float> profitList) {
+        List<List<String>> result = new ArrayList<>();
         for (int i = 0; i < inventory.size(); i++) {
-            int id = inventory.get(i).getId();
+            String index = String.valueOf(inventory.get(i).getId());
             String title = inventory.get(i).getTitle();
-            float profit = profitList.get(i);
-            int quantity = totalQuantity.get(i);
-            float sellingPrice = inventory.get(i).getSellingPrice();
-            float costPrice = inventory.get(i).getCostPrice();
-            System.out.format(tableFormat, id, title, quantity, costPrice, sellingPrice, profit);
+            String quantity = String.valueOf(totalQuantity.get(i));
+            String costPrice = String.valueOf(inventory.get(i).getCostPrice());
+            String sellingPrice = String.valueOf(inventory.get(i).getSellingPrice());
+            String profit = String.valueOf(profitList.get(i));
+            List<String> data = List.of(index, title, quantity, costPrice, sellingPrice, profit);
+            result.add(data);
         }
-        System.out.format(tableBorder);
+        return result;
     }
 
     public void getBestSellingProduct(List<Integer> totalQuantity) {

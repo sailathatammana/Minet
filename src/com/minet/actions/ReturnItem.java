@@ -67,7 +67,8 @@ public class ReturnItem {
             float totalCost = transactionItem.getAmount();
             TransactionType type = TransactionType.RETURN;
             System.out.println("Your item with receipt number " + returnReceiptNumber + " is returned.");
-            transactionList.add(new Transaction(itemTitle, returnedItemQuantity, cashierName, returnReceiptNumber, totalCost, type));
+            transactionList.add(new Transaction(itemTitle, returnedItemQuantity, cashierName,
+                    returnReceiptNumber, totalCost, type));
             return true;
         }
         return false;
