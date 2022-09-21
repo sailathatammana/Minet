@@ -2,6 +2,7 @@ package com.minet.userRoles;
 
 import com.minet.actions.ReviewOrders;
 import com.minet.actions.ViewOrderedTransactionList;
+import com.minet.data.InventoryPool;
 import com.minet.data.OrderListPool;
 import com.minet.data.OrderedTransactionListPool;
 import com.minet.utils.Display;
@@ -26,18 +27,12 @@ public class Manager extends Person implements iManager {
         this.orderLists.clear();
         this.orderLists = OrderListPool.getAllOrderLists();
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.orderedTransactionList.clear();
         this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
         new ViewOrderList(orderLists);
         ReviewOrders reviewOrders = new ReviewOrders(inventory, orderLists, orderedTransactionList);
         reviewOrders.reviewOrderList();
-        this.orderLists.clear();
-        this.orderLists = OrderListPool.getAllOrderLists();
-        this.inventory.clear();
-        this.getfullInventory();
-        this.orderedTransactionList.clear();
-        this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
     }
 
     @Override

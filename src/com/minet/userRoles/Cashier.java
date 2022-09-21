@@ -3,6 +3,7 @@ package com.minet.userRoles;
 import com.minet.actions.CreateOrder;
 import com.minet.actions.ReturnItem;
 import com.minet.actions.SellItem;
+import com.minet.data.InventoryPool;
 import com.minet.data.OrderListPool;
 import com.minet.data.TransactionPool;
 import com.minet.utils.Display;
@@ -25,41 +26,31 @@ public class Cashier extends Person implements iCashier {
     @Override
     public void sellItem() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.transactionList.clear();
         this.transactionList = TransactionPool.getAllTransactions();
         SellItem sellItem = new SellItem(user, inventory, transactionList);
         sellItem.sellAnItem();
-        this.inventory.clear();
-        this.getfullInventory();
-        this.transactionList.clear();
-        this.transactionList = TransactionPool.getAllTransactions();
     }
 
     @Override
     public void createOrder() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.orderLists.clear();
         this.orderLists = OrderListPool.getAllOrderLists();
         CreateOrder createOrder = new CreateOrder(user, inventory, orderLists);
         createOrder.CreateAnOrder();
-        this.orderLists.clear();
-        this.orderLists = OrderListPool.getAllOrderLists();
     }
 
     @Override
     public void returnItem() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.transactionList.clear();
         this.transactionList = TransactionPool.getAllTransactions();
         ReturnItem returnItem = new ReturnItem(user, inventory, transactionList);
         returnItem.ReturnAnItem();
-        this.inventory.clear();
-        this.getfullInventory();
-        this.transactionList.clear();
-        this.transactionList = TransactionPool.getAllTransactions();
     }
 
 

@@ -1,22 +1,20 @@
 package com.minet.userRoles;
 
+import com.minet.data.InventoryPool;
 import com.minet.data.OrderListPool;
 import com.minet.utils.Display;
-import com.minet.utils.FileHandler;
 import com.minet.utils.InventoryItem;
 import com.minet.utils.OrderList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
-    protected List<InventoryItem> inventory = new ArrayList<InventoryItem>();
-    FileHandler<InventoryItem> fileHandler = new FileHandler<>();
+    protected List<InventoryItem> inventory;
     protected List<OrderList> orderLists;
 
 
     public Person() {
-        getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.orderLists = OrderListPool.getAllOrderLists();
     }
 
@@ -26,23 +24,9 @@ public class Person {
 
     public void viewInventory() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         displayInventory();
         Display.returnMainMenu();
-    }
-
-
-    public void getfullInventory() {
-        List<List<String>> result = fileHandler.readFromFile("assets/inventory.txt");
-        result.forEach(item -> {
-            int id = Integer.parseInt(item.get(0));
-            String title = item.get(1);
-            String description = item.get(2);
-            float sellingPrice = Float.parseFloat(item.get(3));
-            float costPrice = Float.parseFloat(item.get(4));
-            int quantity = Integer.parseInt(item.get(5));
-            inventory.add(new InventoryItem(id, title, description, sellingPrice, costPrice, quantity));
-        });
     }
 
     public void displayInventory() {

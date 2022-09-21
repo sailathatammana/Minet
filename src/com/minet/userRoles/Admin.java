@@ -1,6 +1,7 @@
 package com.minet.userRoles;
 
 import com.minet.actions.*;
+import com.minet.data.InventoryPool;
 import com.minet.data.OrderListPool;
 import com.minet.data.OrderedTransactionListPool;
 import com.minet.data.TransactionPool;
@@ -26,41 +27,31 @@ public class Admin extends Person implements iAdmin {
     @Override
     public void sellItem() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.transactionList.clear();
         this.transactionList = TransactionPool.getAllTransactions();
         SellItem sellItem = new SellItem(user, inventory, transactionList);
         sellItem.sellAnItem();
-        this.inventory.clear();
-        this.getfullInventory();
-        this.transactionList.clear();
-        this.transactionList = TransactionPool.getAllTransactions();
     }
 
     @Override
     public void returnItem() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.transactionList.clear();
         this.transactionList = TransactionPool.getAllTransactions();
         ReturnItem returnItem = new ReturnItem(user, inventory, transactionList);
         returnItem.ReturnAnItem();
-        this.inventory.clear();
-        this.getfullInventory();
-        this.transactionList.clear();
-        this.transactionList = TransactionPool.getAllTransactions();
     }
 
     @Override
     public void createOrder() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.orderLists.clear();
         this.orderLists = OrderListPool.getAllOrderLists();
         CreateOrder createOrder = new CreateOrder(user, inventory, orderLists);
         createOrder.CreateAnOrder();
-        this.orderLists.clear();
-        this.orderLists = OrderListPool.getAllOrderLists();
     }
 
     @Override
@@ -68,18 +59,12 @@ public class Admin extends Person implements iAdmin {
         this.orderLists.clear();
         this.orderLists = OrderListPool.getAllOrderLists();
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.orderedTransactionList.clear();
         this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
         new ViewOrderList(orderLists);
         ReviewOrders reviewOrders = new ReviewOrders(inventory, orderLists, orderedTransactionList);
         reviewOrders.reviewOrderList();
-        this.orderLists.clear();
-        this.orderLists = OrderListPool.getAllOrderLists();
-        this.inventory.clear();
-        this.getfullInventory();
-        this.orderedTransactionList.clear();
-        this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
     }
 
     @Override
@@ -89,22 +74,16 @@ public class Admin extends Person implements iAdmin {
         ViewOrderedTransactionList list = new ViewOrderedTransactionList();
         list.showTable(orderedTransactionList);
         Display.returnMainMenu();
-        this.orderedTransactionList.clear();
-        this.orderedTransactionList = OrderedTransactionListPool.getAllOrderedTransactions();
     }
 
 
     @Override
     public void getStatistics() {
         this.inventory.clear();
-        this.getfullInventory();
+        this.inventory = InventoryPool.getfullInventory();
         this.transactionList.clear();
         this.transactionList = TransactionPool.getAllTransactions();
         Statistics statistics = new Statistics(inventory, transactionList);
         statistics.generateStatistics();
-        this.inventory.clear();
-        this.getfullInventory();
-        this.transactionList.clear();
-        this.transactionList = TransactionPool.getAllTransactions();
     }
 }
