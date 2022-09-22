@@ -50,7 +50,7 @@ public class Statistics {
         return itemQuantity;
     }
 
-    public void displayStatistics(List<Integer> totalQuantity, List<Float> profitList) {
+    private void displayStatistics(List<Integer> totalQuantity, List<Float> profitList) {
         List<Integer> columnWidths = List.of(5, 15, 5, 13, 16, 9);
         List<String> headers = List.of("ID", "Product", "Sold", "Cost Price", "Selling Price", "Profit");
         List<List<String>> body = parseData(inventory, totalQuantity, profitList);
@@ -73,12 +73,12 @@ public class Statistics {
         return result;
     }
 
-    public void getBestSellingProduct(List<Integer> totalQuantity) {
+    private void getBestSellingProduct(List<Integer> totalQuantity) {
         int index = totalQuantity.indexOf(Collections.max(totalQuantity));
         System.out.println("Best Selling Product is: " + inventory.get(index).getTitle().toUpperCase());
     }
 
-    public void generateCashFlow(List<Float> outwardCashFlow, List<Float> inwardCashFlow) {
+    private void generateCashFlow(List<Float> outwardCashFlow, List<Float> inwardCashFlow) {
         float outCashFlow = (float) outwardCashFlow.stream().mapToDouble(Float::floatValue).sum();
         System.out.println("Total OutWard cash flow is: " + outCashFlow);
         float inCashFlow = (float) inwardCashFlow.stream().mapToDouble(Float::floatValue).sum();

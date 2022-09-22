@@ -21,14 +21,23 @@ public class LoginMenu {
     public void start() {
         while (true) {
             user = controller.run();
+            if (validateUsersAvailable()) break;
+        }
+    }
+
+    private boolean validateUsersAvailable() {
+        if (user == null) {
+            return true;
+        } else {
             boolean isUserValid = validateLoginDetails(user.getUserName(), user.getPassword());
             if (isUserValid) {
                 validateRole();
-                break;
+                return true;
             } else {
                 controller.view.printInvalidCred();
             }
         }
+        return false;
     }
 
     public boolean validateLoginDetails(String userName, String encryptedPassword) {

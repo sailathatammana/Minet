@@ -34,6 +34,6 @@ public class LoginMenuView extends BaseView {
     }
 
     public void printUsersEmpty() {
-        System.out.println(" No users available to login ");
+        System.out.println("No users available to login ");
     }
 }

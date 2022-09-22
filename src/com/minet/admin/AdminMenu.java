@@ -16,6 +16,7 @@ public class AdminMenu {
                     case "Return an Item" -> admin.returnItem();
                     case "Create order" -> admin.createOrder();
                     case "View Inventory" -> admin.viewInventory();
+                    case "View Transactions" -> admin.viewTransactionList();
                     case "Review orderList" -> admin.viewOrderList();
                     case "View OrderedTransaction List" -> admin.viewOrderedTransactionList();
                     case "Generate Statistics" -> admin.getStatistics();

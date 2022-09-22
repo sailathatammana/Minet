@@ -48,6 +48,12 @@ public class Admin extends Person implements iAdmin {
         createOrder.CreateAnOrder();
     }
 
+    public void viewTransactionList() {
+        resyncTransactionList();
+        new ViewTransactions(transactionList);
+        Display.returnMainMenu();
+    }
+
     @Override
     public void viewOrderList() {
         this.resyncInventory();

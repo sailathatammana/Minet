@@ -7,8 +7,11 @@ public interface iAdmin {
 
     void createOrder();
 
+    void viewTransactionList();
+
     void viewOrderList();
 
     void viewOrderedTransactionList();
+
     void getStatistics();
 }

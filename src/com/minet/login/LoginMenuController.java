@@ -14,11 +14,10 @@ public class LoginMenuController extends BaseController<User> {
 
     public LoginMenuController(String role) {
         this.role = role;
-        model.getAllUsers();
     }
 
     public User run() {
-        if (listHasUsers()) return (new User("", "", "", ""));
+        if (listHasUsers()) return null;
         String userName = view.printUserNamePrompt();
         String password = view.printPasswordPrompt();
         String encryptedPassword = Encrypt.encryptPassword(password);
@@ -29,11 +28,10 @@ public class LoginMenuController extends BaseController<User> {
         if (model.users.size() == 0) {
             view.printUsersEmpty();
             Display.returnMainMenu();
-            new HomeMenu();
+            HomeMenu homeMenu = new HomeMenu();
+            homeMenu.start();
             return true;
         }
         return false;
     }
-
-
 }
