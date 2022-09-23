@@ -24,7 +24,7 @@ public class ManagerMenuController extends BaseController<String> {
 
     public int handleOption(int selectedOption) {
         switch (selectedOption) {
-            case 1, 2,3 -> {
+            case 1, 2, 3 -> {
                 return 1;
             }
             case 4 -> Display.exit();

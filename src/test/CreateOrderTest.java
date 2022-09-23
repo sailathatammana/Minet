@@ -1,14 +1,14 @@
 package test;
 
 import com.minet.actions.CreateOrder;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import com.minet.utils.InventoryItem;
 import com.minet.utils.OrderList;
 import com.minet.utils.OrderStatusType;
 import com.minet.utils.User;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ class CreateOrderTest {
     public void init() {
         user = new User("Ravi", "ravi",
                 "108317418603245272581161763738331279269013253057951070798501290887753974195791", "Cashier");
-        item = new InventoryItem(10, "Pencil", "To write", 10, 8,5);
+        item = new InventoryItem(10, "Pencil", "To write", 10, 8, 5);
         inventoryItemList = List.of(item);
         orderList = new OrderList(1234, item, "Ravi", OrderStatusType.PENDING);
         orderLists = List.of(orderList);

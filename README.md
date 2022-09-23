@@ -15,18 +15,19 @@ products from customers and also check the profits and statistics of their busin
 
 1. The following are the login details for different user roles for using the application
 
-- Admin Login details: ravilatha Password: 12345678
-- Manager Login details: latha Password: 12345678
-- Cashier1 Login details: ravi Password: 12345678
-- Cashier2 Login details: sai Password: 12345678
+    - Admin Login details: ravilatha Password: 12345678
+    - Manager Login details: latha Password: 12345678
+    - Cashier1 Login details: ravi Password: 12345678
+    - Cashier2 Login details: sai Password: 12345678
 
-2. Make sure to place the assets folder in same path of jar file placed before running the jar file in the terminal.
+
+2. Make sure to place the **assets** folder in same path of jar file placed before running the jar file in the terminal.
 
 3. Inventory details can be added in inventory.txt file in the assets folder. If you would like to add more items in
    inventory, please make sure all the fields are written. The fields in the inventory are
 
-- Id, Product name, Description, Selling price, Cost Price, Quantity.
-- For Example: 1,Pen,It is used to write,10.0,8.0,28
+    - Id, Product name, Description, Selling price, Cost Price, Quantity.
+    - For Example: 1,Pen,It is used to write,10.0,8.0,28
 
 ### 1.3 Using an IDE and GIT
 

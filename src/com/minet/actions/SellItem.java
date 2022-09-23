@@ -56,7 +56,7 @@ public class SellItem {
             int receiptNumber = RandomGenerator.generateRandomNumber(9999999);
             float totalCost = requestedQuantity * item.getSellingPrice();
             TransactionType type = TransactionType.SELL;
-            System.out.println("Your receipt number is: " + receiptNumber);
+            System.out.println("Item sold successfully! Your receipt number is: " + receiptNumber);
             transactionList.add(new Transaction(itemTitle, requestedQuantity, cashierName, receiptNumber, totalCost, type));
             return true;
         }
